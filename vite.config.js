@@ -7,9 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/v1': {
-        target: 'http://localhost:5000',
-        // changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api\/v1/, ''),
+        target: 'https://hd-restaurant-be.onrender.com/',
+        changeOrigin: true,
       },
     },
   },

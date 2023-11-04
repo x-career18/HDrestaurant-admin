@@ -4,14 +4,16 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import TopBar from "./components/sidebar/TopBar";
-import SideBar from "./components/sidebar/SideBar";
+import TopBar from "./components/TopBar";
+import SideBar from "./components/SideBar";
 import HomeAdmin from "./pages/home/HomeAdmin";
 import HomeManager from "./pages/home/HomeManager";
 import HomeEmployee from "./pages/home/HomeEmployee";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import NotFound from "./pages/notFound/NotFound";
+import RestaurantList from "./pages/restaurantList/RestaurantList";
+import BreadCrumb from "./components/BreadCrumb";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
 
@@ -47,6 +49,18 @@ function App() {
                 </>
               }
             />
+            <Route
+              path="/restaurant-list"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex ">
+                    <SideBar />
+                    {user.role === "admin" && <RestaurantList />}
+                  </div>
+                </>
+              }
+            ></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </>

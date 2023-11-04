@@ -7,11 +7,17 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isFetching, dispatch } = useContext(AuthContext);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login({ email, password }, dispatch);
+    try {
+      await login({ email, password }, dispatch);
+      setMessage("");
+    } catch (err) {
+      setMessage(err.message);
+    }
   };
 
   return (
@@ -70,6 +76,11 @@ const Login = () => {
               </div>
             </div>
           </div>
+          {message && (
+            <div className="w-96 text-red-500 text-sm font-normal font-poppins">
+              {message}
+            </div>
+          )}
           <div className="self-end text-indigo-900 text-sm font-normal font-poppins underline">
             Forgot password?
           </div>

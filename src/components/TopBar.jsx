@@ -1,7 +1,10 @@
 import React from "react";
 import { Search, Mail, NotificationsActive } from "@material-ui/icons";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext/AuthContext";
 
 const TopBar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="inline-flex w-full">
       <section className="w-80 h-24 bg-violet-500 inline-flex items-center justify-center gap-3">
@@ -20,11 +23,11 @@ const TopBar = () => {
           />
         </div>
         <div className="inline-flex items-center gap-4 text-zinc-400">
-          <Mail />
-          <NotificationsActive />
-          <div class="w-10 h-10 rounded-full bg-blue-500"></div>
+          <Mail className="cursor-pointer" />
+          <NotificationsActive className="cursor-pointer" />
+          <div class="w-10 h-10 rounded-full bg-blue-500 cursor-pointer" />
           <span className="text-gray-500 text-base font-bold font-beVietnam leading-tight">
-            user's name
+            {user.fullname}
           </span>
         </div>
       </section>
