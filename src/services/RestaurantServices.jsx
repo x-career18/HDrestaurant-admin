@@ -1,23 +1,44 @@
 import axios from 'axios';
 
+const api = axios.create({
+    baseURL: '/api/v1',
+});
+
+api.interceptors.request.use(
+    (config) => {
+        // Lấy token từ nơi bạn đã lưu nó, ví dụ trong localStorage hoặc biến khác
+        const token = localStorage.getItem('accessToken'); // Điền vào đây để lấy token
+
+        // Nếu có token, thêm nó vào header
+        if (token) {
+            config.headers.token = token;
+        }
+
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 const fetchRestaurants = () => {
-    return axios.get('/api/v1/restaurants');
+    return api.get('/restaurants');
 }
 
 const fetchRestaurantById = (id) => {
-    return axios.get(`/api/v1/restaurants/${id}`);
+    return api.get(`/restaurants/${id}`);
 };
 
 const fetchRestaurantAll = () => {
-    return axios.get('/api/v1/restaurants/all');
+    return api.get('/restaurants/all');
 };
 
 const fetchUpdateRestaurant = (id, data) => {
-    return axios.put(`/api/v1/restaurants/${id}`, data);
+    return api.put(`/restaurants/${id}`, data);
 };
 
 const fetchDeleteRestaurant = (id) => {
-    return axios.delete(`/api/v1/restaurants/${id}`);
+    return api.delete(`/restaurants/${id}`);
 };
 
 export {
@@ -25,5 +46,5 @@ export {
     fetchRestaurantById,
     fetchRestaurantAll,
     fetchUpdateRestaurant,
-    fetchDeleteRestaurant,
+    fetchDeleteRestaurant
 }
