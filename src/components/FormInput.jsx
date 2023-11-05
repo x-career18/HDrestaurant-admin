@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const FormInput = ({ title, placeholder, type, name, onChange }) => {
 

@@ -3,8 +3,9 @@ import BreadCrumb from "../../components/BreadCrumb";
 import ListItem from "../../components/ListItem";
 
 const RestaurantList = () => {
-  const numColumns = 5
-  const numRows = 5
+  const numColumns = 5;
+  const numRows = 5;
+  
   return (
     <main className="bg-slate-100 grow h-screen flex flex-col">
       <BreadCrumb />
@@ -12,7 +13,7 @@ const RestaurantList = () => {
         <h4 className="text-neutral-600 text-xl font-bold font-beVietnam leading-10">
           List of Restaurants
         </h4>
-        <table className="table-auto">
+        <table className="table-auto w-full">
           <thead>
             <tr className="h-14">
               <th className="text-neutral-600 text-lg font-bold font-beVietnam leading-10 tracking-tight">
@@ -32,7 +33,12 @@ const RestaurantList = () => {
               </th>
             </tr>
           </thead>
-          <ListItem numColumns={numColumns} numRows={numRows} />
+          <ListItem
+            numColumns={numColumns}
+            numRows={numRows}
+            // data={data}
+            // key={dataKeys}
+          />
         </table>
       </section>
     </main>

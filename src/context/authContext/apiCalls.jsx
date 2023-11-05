@@ -11,8 +11,10 @@ export const login = async (user, dispatch) => {
       const decodedToken = jwtDecode(res.data.accessToken);
       dispatch(loginSuccess(decodedToken));
       localStorage.setItem("accessToken", res.data.accessToken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.accessToken}`;
     }
   } catch (error) {
+    dispatch(loginFailure())
     if (error.response && error.response.data && error.response.data.message) {
       console.log(error.response.data.message);
       throw new Error(error.response.data.message); // Throw the error to be caught later

@@ -1,8 +1,8 @@
 import React from "react";
 
-const ListItem = ({ numColumns, numRows }) => {
+const ListItem = ({ numColumns, numRows, data }) => {
   return (
-    <tbody>
+    <tbody className="w-full flex flex-col gap-3">
       {Array.from({ length: numRows }).map((_, rowIndex) => (
         <tr
           key={rowIndex}
@@ -13,14 +13,10 @@ const ListItem = ({ numColumns, numRows }) => {
               key={colIndex}
               className="text-gray-500 text-lg text-center font-bold font-beVietnam leading-10 tracking-tight"
             >
-              01
+              {data}
             </td>
           ))}
-          {/* <td className="text-center">
-          <span className="bg-orange-400 px-3 py-2 rounded-3xl text-center text-white text-base font-bold font-beVietnam leading-snug tracking-tight">
-            Pending
-          </span>
-        </td> */}
+
         </tr>
       ))}
     </tbody>
