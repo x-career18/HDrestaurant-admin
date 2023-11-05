@@ -13,7 +13,7 @@ const ListItem = ({ numColumns, numRows }) => {
               key={colIndex}
               className="text-gray-500 text-lg text-center font-bold font-beVietnam leading-10 tracking-tight"
             >
-              01
+              02
             </td>
           ))}
           {/* <td className="text-center">
