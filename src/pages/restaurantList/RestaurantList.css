@@ -3,11 +3,10 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    color: #969696 !important;
-
-    &:before {
-        display: none !important;
-    }
+    color: #969696 !important; 
+}
+.main-table thead th td &:before {
+    display: none !important;
 }
 
 .ant-table-tbody {
