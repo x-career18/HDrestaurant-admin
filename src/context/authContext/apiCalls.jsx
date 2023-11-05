@@ -9,6 +9,7 @@ export const login = async (user, dispatch) => {
     console.log(res.data);
     if (res.data.accessToken) {
       const decodedToken = jwtDecode(res.data.accessToken);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.accessToken}`;
       dispatch(loginSuccess(decodedToken));
       localStorage.setItem("accessToken", res.data.accessToken);
       axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.accessToken}`;

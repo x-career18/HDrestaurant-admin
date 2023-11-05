@@ -1,0 +1,1 @@
+export const DEFAULT_IMAGE = 'https://png.pngtree.com/png-vector/20210215/ourlarge/pngtree-restaurant-icon-design-template-illustration-png-image_2909543.jpg';
