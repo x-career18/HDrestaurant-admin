@@ -10,6 +10,7 @@ const RestaurantList = () => {
 
   const columns = [
     {
+      width: 100,
       title: ' ',
       dataIndex: 'image',
       key: 'image',
@@ -33,11 +34,13 @@ const RestaurantList = () => {
       render: (text, record) => moment(text).format('DD/MM/YYYY')
     },
     {
+      width: 400,
       title: 'ID Restaurant',
       dataIndex: 'idRestaurant',
       key: 'idRestaurant',
     },
     {
+      width: 200,
       title: 'Trạng thái',
       dataIndex: 'isVerified',
       key: 'isVerified',
@@ -46,14 +49,15 @@ const RestaurantList = () => {
           <Button
             type="primary"
             onClick={() => handleConfirm(record)}
-            disabled={isVerified} // Nếu isVerified là true thì nút "Xác nhận" sẽ bị vô hiệu hóa
+            disabled={isVerified}
           >
             Xác nhận
           </Button>
           <Button
             type="danger"
             onClick={() => handleDelete(record)}
-            disabled={isVerified} // Nếu isVerified là true thì nút "Xóa" s
+            disabled={isVerified}
+            style={{ backgroundColor: '#FF3B3B1A', borderColor: '#E92C2C', marginLeft: 10, color: '#E92C2C' }}
           >
             Xóa
           </Button>
@@ -62,33 +66,32 @@ const RestaurantList = () => {
     },
   ]
 
-  const handleConfirm = (record) => {
-    fetchUpdateRestaurant(record.id, { isVerified: true })
-      .then(response => {
-        if (response.status === 200) {
-          message.success("Xác nhận thành công");
-          getAllRestaurant(); // Tải lại dữ liệu sau khi xác nhận
-        }
-      })
-      .catch(error => {
-        console.error("Lỗi khi xác nhận:", error);
-        message.error("Xác nhận thất bại");
-      });
+  const handleConfirm = async (record) => {
+    try {
+      const response = await fetchUpdateRestaurant(record.id, { isVerified: true });
+      if (response.status === 200) {
+        message.success("Xác nhận thành công");
+        getAllRestaurant(); // Tải lại dữ liệu sau khi xác nhận
+      }
+    } catch (error) {
+      console.error("Lỗi khi xác nhận:", error);
+      message.error("Xác nhận thất bại");
+    }
   }
 
-  const handleDelete = (record) => {
-    fetchDeleteRestaurant(record.id)
-      .then(response => {
-        if (response.status === 200) {
-          message.success("Xóa thành công");
-          getAllRestaurant(); // Tải lại dữ liệu sau khi xóa
-        }
-      })
-      .catch(error => {
-        console.error("Lỗi khi xóa:", error);
-        message.error("Xóa thất bại");
-      });
+  const handleDelete = async (record) => {
+    try {
+      const response = await fetchDeleteRestaurant(record.id);
+      if (response.status === 200) {
+        message.success("Xóa thành công");
+        getAllRestaurant(); // Tải lại dữ liệu sau khi xóa
+      }
+    } catch (error) {
+      console.error("Lỗi khi xóa:", error);
+      message.error("Xóa thất bại");
+    }
   }
+
 
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
