@@ -92,7 +92,7 @@ const Login = () => {
             disabled={isFetching}
           >
             <span className="text-center text-white text-base font-semibold font-poppins">
-              Login
+              {isFetching ? "Logging in..." : "Login"}
             </span>
           </button>
           <div className="w-96 h-5 inline-flex items-center gap-5">

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Dashboard,
   ViewList,
@@ -11,6 +11,7 @@ import {
   DoneAll,
   Book,
   MenuBook,
+  PlusOne,
 } from "@material-ui/icons";
 import { AuthContext } from "../context/authContext/AuthContext";
 import { AppContext } from "../context/appContext/AppContext";
@@ -19,9 +20,16 @@ const SideBar = () => {
   const { activeTab, setActiveTab } = useContext(AppContext);
   const { user } = useContext(AuthContext);
   const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setActiveTab("Dashboard");
+  }, [setActiveTab]);
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch({ type: "LOGOUT" });
+    navigate("/");
   };
   return (
     <main className="w-80 h-96">
@@ -68,6 +76,20 @@ const SideBar = () => {
             Verify Restaurants
           </Link>
         )}
+        {user.role === "admin" && (
+          <Link
+            to={"/new-restaurant"}
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
+              activeTab === "Add Restaurant"
+                ? "bg-violet-500 bg-opacity-10 text-violet-500"
+                : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
+            }`}
+            onClick={() => setActiveTab("Add Restaurant")}
+          >
+            <PlusOne />
+            Add Restaurant
+          </Link>
+        )}
         {user.role === "manager" && (
           <Link
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
@@ -96,6 +118,7 @@ const SideBar = () => {
         )}
         {user.role === "admin" && (
           <Link
+            to={"/user-list"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Users"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"

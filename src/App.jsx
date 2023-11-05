@@ -13,9 +13,10 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import NotFound from "./pages/notFound/NotFound";
 import RestaurantList from "./pages/restaurantList/RestaurantList";
-import BreadCrumb from "./components/BreadCrumb";
+import NewRestaurant from "./pages/newRestaurant/NewRestaurant";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext/AuthContext";
+import UserList from "./pages/userList/UserList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -36,7 +37,7 @@ function App() {
               element={
                 <>
                   <TopBar />
-                  <div className="flex ">
+                  <div className="flex">
                     <SideBar />
                     {user.role === "manager" ? (
                       <HomeManager />
@@ -54,9 +55,33 @@ function App() {
               element={
                 <>
                   <TopBar />
-                  <div className="flex ">
+                  <div className="flex">
                     <SideBar />
                     {user.role === "admin" && <RestaurantList />}
+                  </div>
+                </>
+              }
+            ></Route>
+            <Route
+              path="/user-list"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "admin" && <UserList />}
+                  </div>
+                </>
+              }
+            ></Route>
+            <Route
+              path="/new-restaurant"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "admin" && <NewRestaurant />}
                   </div>
                 </>
               }

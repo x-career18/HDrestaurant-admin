@@ -8,17 +8,6 @@ const BreadCrumb = () => {
       <span className="text-violet-500 text-xl font-bold font-beVietnam leading-10">
         {activeTab ? activeTab : ""}
       </span>
-      {/* <div className="w-40 h-14 inline-flex items-center">
-        <span className="tab-name text-violet-500 text-sm font-bold font-beVietnam leading-10 tracking-tight">
-          Home
-        </span>
-        <span className="text-right text-violet-500 text-sm font-bold font-beVietnam leading-10 tracking-tight">
-          -
-        </span>
-        <span className="text-zinc-400 text-sm font-bold font-beVietnam leading-10 tracking-tight">
-          Restaurant
-        </span>
-      </div> */}
     </main>
   );
 };
