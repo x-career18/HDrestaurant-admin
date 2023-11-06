@@ -66,8 +66,6 @@ const RestaurantList = () => {
     },
   ]
 
-
-
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
 

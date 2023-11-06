@@ -8,13 +8,13 @@ const Register = () => {
   const [fullname, setFullName] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
+  const [idRestaurant, setIdRestaurant] = useState("");
   const { isFetching, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
-    register({ email, fullname, phonenumber, password, code }, dispatch);
+    register({ email, fullname, phonenumber, password, idRestaurant }, dispatch);
     navigate("/");
   };
 
@@ -114,7 +114,7 @@ const Register = () => {
                   type="text"
                   placeholder="Enter your restaurant code"
                   className="w-full h-full bg-transparent outline-none text-neutral-600 text-sm font-normal font-poppins"
-                  onChange={(e) => setCode(e.target.value)}
+                  onChange={(e) => setIdRestaurant(e.target.value)}
                 />
               </div>
               <div className="w-12 h-12">
