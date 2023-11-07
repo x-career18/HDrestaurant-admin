@@ -10,8 +10,7 @@ export const createRestaurant = async (restaurant, dispatch) => {
   try {
     const res = await axios.post("api/v1/restaurants", restaurant, {
       headers: {
-        token:
-          "Bearer " + localStorage.getItem("accessToken"),
+        token: localStorage.getItem("accessToken"),
       },
     });
     dispatch(createRestaurantSuccess(res.data));

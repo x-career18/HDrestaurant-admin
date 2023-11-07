@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import FormInput from "../../components/FormInput";
 import FormSelect from "../../components/FormSelect";
 import FormButtons from "../../components/FormButtons";
+import { RestaurantContext } from "../../context/restaurantContext/RestaurantContext";
+import { createRestaurant } from "../../context/restaurantContext/apiCalls";
 
 const NewRestaurant = () => {
   const [restaurant, setRestaurant] = useState(null);
+  const { isFetching, dispatch } = useContext(RestaurantContext);
+
   const handleChange = (e) => {
     const value = e.target.value;
     setRestaurant({ ...restaurant, [e.target.name]: value });
-    console.log(restaurant);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(restaurant);
+    console.log(restaurant)
+    createRestaurant(restaurant, dispatch);
   };
 
   return (
@@ -30,6 +35,7 @@ const NewRestaurant = () => {
             type="text"
             name="name"
             onChange={handleChange}
+            isRequired
           />
           <FormInput
             title="Address"
@@ -37,14 +43,16 @@ const NewRestaurant = () => {
             type="text"
             name="address"
             onChange={handleChange}
+            isRequired
           />
-          <FormInput title="Profile picture" placeholder="" type="file" />
+          <FormInput title="Profile picture" type="text" name="image" onChange={handleChange} isRequired />
           <FormInput
             title="Opening hours"
             placeholder=""
             type="time"
             name="openingHours"
             onChange={handleChange}
+            isRequired
           />
           <FormInput
             title="Closing hours"
@@ -52,6 +60,7 @@ const NewRestaurant = () => {
             type="time"
             name="closingHours"
             onChange={handleChange}
+            isRequired
           />
           <FormInput
             title="Description"
@@ -59,8 +68,9 @@ const NewRestaurant = () => {
             type="text"
             name="description"
             onChange={handleChange}
+            isRequired
           />
-          <FormSelect
+          {/* <FormSelect
             title="Status"
             option1="Verified"
             option2="Pending"
@@ -80,13 +90,14 @@ const NewRestaurant = () => {
             type="text"
             name="idManager"
             onChange={handleChange}
-          />
+          /> */}
           <FormInput
             title="Location"
             placeholder=""
             type="text"
             name="locationName"
             onChange={handleChange}
+            isRequired
           />
           <FormInput
             title="Location code"
@@ -94,12 +105,15 @@ const NewRestaurant = () => {
             type="text"
             name="locationCode"
             onChange={handleChange}
+            isRequired
           />
           <FormButtons
             btnType1="submit"
             btnType2="reset"
             btnName1="Create"
             btnName2="Cancel"
+            btn1Disabled={isFetching}
+            btn2Disabled={isFetching}
           />
         </form>
       </section>
