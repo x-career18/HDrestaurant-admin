@@ -20,9 +20,10 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+const randomQuery = `?_=${Math.random()}`;
 
 const fetchRestaurants = () => {
-    return api.get('/restaurants');
+    return api.get(`/restaurants${randomQuery}`);
 }
 
 const fetchRestaurantById = (id) => {

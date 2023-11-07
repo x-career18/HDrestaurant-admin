@@ -6,7 +6,6 @@ export const login = async (user, dispatch) => {
   dispatch(loginStart());
   try {
     const res = await axios.post("api/v1/auth/login", user);
-    console.log(res.data);
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${res.data.accessToken}`;

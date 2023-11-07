@@ -66,15 +66,15 @@ const RestaurantList = () => {
     },
   ]
 
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
 
   const getAllRestaurant = async () => {
     setLoading(true)
     try {
       const response = await fetchRestaurantAll()
-      if (response && response?.data) {
-        setData(response?.data);
+      if (response && response.data) {
+        setData(response.data);
       }
     } catch (error) {
       console.error("Lỗi khi gọi API:", error);
@@ -90,8 +90,7 @@ const RestaurantList = () => {
   const handleConfirm = async (record) => {
     try {
       const response = await fetchUpdateRestaurant(record._id, { isVerified: true });
-      if (response.status === 200) {
-        message.success("Xác nhận thành công");
+      if (response && response.data) {
         getAllRestaurant();
       }
     } catch (error) {
@@ -103,8 +102,7 @@ const RestaurantList = () => {
   const handleDelete = async (record) => {
     try {
       const response = await fetchDeleteRestaurant(record._id);
-      if (response.status === 200) {
-        message.success("Xóa thành công");
+      if (response && response.data) {
         getAllRestaurant();
       }
     } catch (error) {
@@ -118,7 +116,7 @@ const RestaurantList = () => {
       <BreadCrumb />
       <section className="flex flex-col pb-10 mx-10 mb-10">
         <h4 className="text-neutral-600 text-xl font-bold font-beVietnam leading-10">
-          List of Restaurants
+          Danh sách nhà hàng
         </h4>
         <div style={{ width: '100%', height: '100%' }}>
           <Table
