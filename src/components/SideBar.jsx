@@ -51,6 +51,7 @@ const SideBar = () => {
         </Link>
         {user.role === "manager" && (
           <Link
+            to={"/my-restaurant"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Restaurant"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
@@ -92,6 +93,7 @@ const SideBar = () => {
         )}
         {user.role === "manager" && (
           <Link
+            to={"/menu"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Menu"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
@@ -105,6 +107,7 @@ const SideBar = () => {
         )}
         {(user.role === "manager" || user.role === "employee") && (
           <Link
+            to={"/receipts"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Receipts"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
@@ -132,6 +135,7 @@ const SideBar = () => {
         )}
         {user.role === "manager" && (
           <Link
+            to={"/employee-list"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Employees"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"

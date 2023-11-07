@@ -25,7 +25,7 @@ const TopBar = () => {
         <div className="inline-flex items-center gap-4 text-zinc-400">
           <Mail className="cursor-pointer" />
           <NotificationsActive className="cursor-pointer" />
-          <div class="w-10 h-10 rounded-full bg-blue-500 cursor-pointer" />
+          <div className="w-10 h-10 rounded-full bg-blue-500 cursor-pointer" />
           <span className="text-gray-500 text-base font-bold font-beVietnam leading-tight">
             {user.fullname}
           </span>

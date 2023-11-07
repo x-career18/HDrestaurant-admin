@@ -21,11 +21,11 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-white flex items-center justify-center h-screen">
+    <main className="bg-white flex items-center justify-center h-screen">
       <form className="w-96 flex flex-col gap-10 items-center">
         <img
-          className="w-60 h-"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F4e%2Fef%2Fe3%2F4eefe398f8caa5ad8aa8e13d6e9c8fd5.png&f=1&nofb=1&ipt=37e2e51f635171360312e8d062b5ba3f295002258803727337cf25bb4385584a&ipo=images"
+          className="w-52"
+          src="src/assets/icons/restaurant.svg"
         />
         <section className="flex flex-col gap-7">
           <div className="flex flex-col gap-2">
@@ -112,7 +112,7 @@ const Login = () => {
           </button>
         </section>
       </form>
-    </div>
+    </main>
   );
 };
 

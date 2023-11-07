@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext/UserContext";
 import { register } from "../../context/userContext/apiCalls";
 
@@ -14,17 +14,17 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    register({ email, fullname, phonenumber, password, idRestaurant }, dispatch);
+    register(
+      { email, fullname, phonenumber, password, idRestaurant },
+      dispatch
+    );
     navigate("/");
   };
 
   return (
-    <div className="flex items-center justify-center py-5">
+    <main className="flex items-center justify-center py-5">
       <form className="w-96 flex flex-col gap-10 items-center">
-        <img
-          className="w-44"
-          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F4e%2Fef%2Fe3%2F4eefe398f8caa5ad8aa8e13d6e9c8fd5.png&f=1&nofb=1&ipt=37e2e51f635171360312e8d062b5ba3f295002258803727337cf25bb4385584a&ipo=images"
-        />
+        <img className="w-44" src="src/assets/icons/restaurant.svg" />
         <section className="flex flex-col gap-7">
           <div className="flex flex-col gap-2">
             <span className="self-start text-neutral-600 text-base font-normal font-poppins">
@@ -141,11 +141,13 @@ const Register = () => {
               />
               <span className="text-sm text-neutral-600 font-normal font-poppins">
                 Agree to our{" "}
-                <a href="" className="underline">
-                  terms and conditions
-                </a>
+                <Link className="underline">terms and conditions</Link>
               </span>
             </div>
+            <span className="text-sm text-neutral-600 font-normal font-poppins pt-2">
+              Already have an account?{" "}
+              <Link to={"/"} className="underline">Login</Link>
+            </span>
           </div>
         </section>
 
@@ -159,7 +161,7 @@ const Register = () => {
           </span>
         </button>
       </form>
-    </div>
+    </main>
   );
 };
 

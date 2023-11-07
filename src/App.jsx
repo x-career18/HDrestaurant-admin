@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { useContext } from "react";
 import TopBar from "./components/TopBar";
 import SideBar from "./components/SideBar";
 import HomeAdmin from "./pages/home/HomeAdmin";
@@ -14,9 +15,13 @@ import Register from "./pages/register/Register";
 import NotFound from "./pages/notFound/NotFound";
 import RestaurantList from "./pages/restaurantList/RestaurantList";
 import NewRestaurant from "./pages/newRestaurant/NewRestaurant";
-import { useContext } from "react";
-import { AuthContext } from "./context/authContext/AuthContext";
 import UserList from "./pages/userList/UserList";
+import EmployeeList from "./pages/employeeList/EmployeeList";
+import ManageMenu from "./pages/manageMenu/ManageMenu";
+import ManageReceipts from "./pages/manageReceipts/ManageReceipts";
+import ManageRestaurant from "./pages/manageRestaurant/ManageRestaurant";
+
+import { AuthContext } from "./context/authContext/AuthContext";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -61,7 +66,7 @@ function App() {
                   </div>
                 </>
               }
-            ></Route>
+            />
             <Route
               path="/user-list"
               element={
@@ -73,7 +78,7 @@ function App() {
                   </div>
                 </>
               }
-            ></Route>
+            />
             <Route
               path="/new-restaurant"
               element={
@@ -85,7 +90,55 @@ function App() {
                   </div>
                 </>
               }
-            ></Route>
+            />
+            <Route
+              path="/employee-list"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "manager" && <EmployeeList />}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "manager" && <ManageMenu />}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/receipts"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "manager" && <ManageReceipts />}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/my-restaurant"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "manager" && <ManageRestaurant />}
+                  </div>
+                </>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </>
