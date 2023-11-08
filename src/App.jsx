@@ -81,25 +81,25 @@ function App() {
               }
             />
             <Route
-              path="/new-restaurant"
-              element={
-                <>
-                  <TopBar />
-                  <div className="flex">
-                    <SideBar />
-                    {user.role === "admin" && <NewRestaurant />}
-                  </div>
-                </>
-              }
-            />
-            <Route
               path="/reports"
               element={
                 <>
                   <TopBar />
                   <div className="flex">
                     <SideBar />
-                    {user.role === "admin" && <ComingSoon/>}
+                    {user.role === "admin" && <ComingSoon />}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/new-restaurant"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "manager" && <NewRestaurant />}
                   </div>
                 </>
               }
