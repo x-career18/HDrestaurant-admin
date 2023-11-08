@@ -6,7 +6,7 @@ import {
   fetchDeleteRestaurant,
 } from "../../services/RestaurantServices";
 import { DEFAULT_IMAGE } from "../../constant";
-import { Button, Table } from "antd";
+import { Button, Table, message } from "antd";
 import moment from "moment";
 import "./RestaurantList.css";
 
@@ -34,10 +34,10 @@ const RestaurantList = () => {
       key: "name",
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      render: (text, record) => moment(text).format("DD/MM/YYYY"),
+      title: 'Ngày tạo',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (text) => moment(text).format('DD/MM/YYYY')
     },
     {
       width: 400,
@@ -51,7 +51,7 @@ const RestaurantList = () => {
       dataIndex: "isVerified",
       key: "isVerified",
       render: (isVerified, record) => (
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Button
             type="primary"
             onClick={() => handleConfirm(record)}
@@ -62,11 +62,10 @@ const RestaurantList = () => {
           <Button
             type="danger"
             onClick={() => handleDelete(record)}
-            disabled={isVerified}
             style={{
               backgroundColor: "#FF3B3B1A",
               borderColor: "#E92C2C",
-              marginLeft: 10,
+             
               color: "#E92C2C",
             }}
           >
@@ -105,6 +104,7 @@ const RestaurantList = () => {
       });
       if (response && response.data) {
         getAllRestaurant();
+        message.success("Xác nhận thành công");
       }
     } catch (error) {
       console.error("Lỗi khi xác nhận:", error);
@@ -117,6 +117,7 @@ const RestaurantList = () => {
       const response = await fetchDeleteRestaurant(record._id);
       if (response && response.data) {
         getAllRestaurant();
+        message.success("Xóa thành công");
       }
     } catch (error) {
       console.error("Lỗi khi xóa:", error);

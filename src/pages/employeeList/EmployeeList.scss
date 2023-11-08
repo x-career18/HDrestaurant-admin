@@ -1,0 +1,39 @@
+.main-table {
+  thead {
+    th,
+    td {
+      background-color: #fff !important;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: #969696 !important;
+
+      &:before {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.ant-table-tbody {
+  cursor: pointer;
+}
+
+.modal-update {
+  .ant-modal-footer {
+    .ant-btn-primary {
+      background-color: #00ba34;
+    }
+  }
+}
+
+//Form
+.form-divide {
+  display: flex;
+  column-gap: 24px;
+}
+
+.child-form {
+  flex: 1;
+}
+
