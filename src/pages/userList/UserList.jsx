@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import BreadCrumb from '../../components/BreadCrumb'
-import { Button, Table, message } from 'antd'
+import { Button, Form, Input, Modal, Table, message } from 'antd'
 import moment from 'moment';
 import { fetchUserManager, fetchUserUpdate, fetchUserDelete } from '../../services/UserSevices.jsx'
-import './UserList.css'
+import './UserList.scss'
+import { SettingsOutlined } from '@material-ui/icons';
 
 const UserList = () => {
   const columns = [
     {
-      title: 'Tên Người Dùng',
+      title: 'Tên Quản Lý',
       dataIndex: 'fullname',
       key: 'fullname',
     },
@@ -26,14 +27,15 @@ const UserList = () => {
       title: 'Ngày Tạo',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (text, record) => moment(text).format('DD/MM/YYYY')
+      render: (text) => moment(text).format('DD/MM/YYYY')
     },
     {
+      width: 200,
       title: 'Trạng Thái',
       dataIndex: 'isActive',
       key: 'isActive',
       render: (isActive, record) => (
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Button
             type="primary"
             onClick={() => handleConfirm(record)}
@@ -44,18 +46,37 @@ const UserList = () => {
           <Button
             type="danger"
             onClick={() => handleDelete(record)}
-            disabled={isActive}
-            style={{ backgroundColor: '#FF3B3B1A', borderColor: '#E92C2C', marginLeft: 10, color: '#E92C2C' }}
+            style={{ backgroundColor: '#FF3B3B1A', borderColor: '#E92C2C', color: '#E92C2C' }}
           >
             Xóa
+          </Button>
+          <Button
+            disabled={!isActive}
+            onClick={() => openUpdateManager(record._id)}
+            style={{ border: 'none', backgroundColor: 'transparent' }}
+          >
+            <SettingsOutlined />
           </Button>
         </div>
       ),
     },
   ]
 
+  const [form] = Form.useForm()
+  const formRef = useRef();
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [isOpenUpdateManager, setIsOpenUpdateManager] = useState(false)
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+  const openUpdateManager = (userId) => {
+    setIsOpenUpdateManager(true)
+    setSelectedUserId(userId);
+  }
+
+  const closeUpdateManager = () => {
+    setIsOpenUpdateManager(false)
+  }
 
   const getManager = async () => {
     setLoading(true)
@@ -80,6 +101,7 @@ const UserList = () => {
       const response = await fetchUserUpdate(record._id, { isActive: true });
       if (response && response.data) {
         getManager();
+        message.success("Xác nhận thành công");
       }
     } catch (error) {
       console.log(error)
@@ -92,10 +114,26 @@ const UserList = () => {
       const response = await fetchUserDelete(record._id);
       if (response && response.data) {
         getManager();
+        message.success("Xóa thành công");
       }
     } catch (error) {
       console.log(error)
       message.error("Xóa thất bại");
+    }
+  }
+
+  const handleUpdateManager = async (values) => {
+    try {
+      const response = await fetchUserUpdate(selectedUserId, values);
+      if (response && response.data) {
+        getManager();
+        message.success("Cập nhật thành công");
+        closeUpdateManager();
+        formRef.current.resetFields();
+      }
+    } catch (error) {
+      console.log(error)
+      message.error("Cập nhật thất bại");
     }
   }
 
@@ -115,6 +153,104 @@ const UserList = () => {
           />
         </div>
       </section>
+      <Modal
+        title="Cập nhật thông tin quản lý"
+        width={450}
+        centered
+        onCancel={closeUpdateManager}
+        open={isOpenUpdateManager}
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values) => {
+              handleUpdateManager(values)
+            })
+            .catch((info) => {
+              console.log('Validate Failed:', info)
+            })
+
+        }}
+        okText="Cập nhật"
+        cancelText="Hủy"
+        className="modal-update"
+      >
+        <div>
+          <Form layout="vertical" form={form} ref={formRef} >
+            <div className="child-form">
+              <Form.Item
+                label="Tên Quản Lý"
+                name="fullname"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Vui lòng nhập tên',
+              //   },
+              // ]}
+              >
+                <Input placeholder="Nhập tên" />
+              </Form.Item>
+            </div>
+            <div className="child-form">
+              <Form.Item
+                label="Email"
+                name="email"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Vui lòng nhập email',
+              //   },
+              // ]}
+              >
+                <Input placeholder="Nhập email" />
+              </Form.Item>
+            </div>
+            <div className="child-form">
+              <Form.Item
+                label="Số điện thoại"
+                name="phonenumber"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Vui lòng nhập số điện thoại',
+              //   },
+              // ]}
+              >
+                <Input placeholder="Nhập số điện thoại" />
+              </Form.Item>
+            </div>
+            <div className="form-divide">
+              <div className="child-form">
+                <Form.Item
+                  label="Mật khẩu cũ"
+                  name="password"
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: 'Vui lòng nhập số điện thoại',
+                //   },
+                // ]}
+                >
+                  <Input placeholder="Nhập Mật Khẩu" />
+                </Form.Item>
+              </div>
+              <div className="child-form">
+                <Form.Item
+                  label="Mật khẩu mới"
+                  name="newPassword"
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: 'Vui lòng nhập số điện thoại',
+                //   },
+                // ]}
+                >
+                  <Input placeholder="Nhập Mật Khẩu Mới" />
+                </Form.Item>
+              </div>
+            </div>
+          </Form>
+        </div>
+      </Modal>
     </main>
   )
 }
