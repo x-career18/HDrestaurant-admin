@@ -82,6 +82,7 @@ const EmployeeList = () => {
     setLoading(true)
     try {
       const res = await fetchUserEmployee()
+      console.log(res);
       if (res && res.data) {
         setData(res.data);
       }
@@ -230,7 +231,7 @@ const EmployeeList = () => {
                 //   },
                 // ]}
                 >
-                  <Input placeholder="Nhập Mật Khẩu" />
+                  <Input type="password" placeholder="Nhập Mật Khẩu" />
                 </Form.Item>
               </div>
               <div className="child-form">
@@ -244,7 +245,7 @@ const EmployeeList = () => {
                 //   },
                 // ]}
                 >
-                  <Input placeholder="Nhập Mật Khẩu Mới" />
+                  <Input type="password" placeholder="Nhập Mật Khẩu Mới" />
                 </Form.Item>
               </div>
             </div>

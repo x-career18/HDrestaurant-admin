@@ -230,7 +230,7 @@ const UserList = () => {
                 //   },
                 // ]}
                 >
-                  <Input placeholder="Nhập Mật Khẩu" />
+                  <Input type="password" placeholder="Nhập Mật Khẩu" />
                 </Form.Item>
               </div>
               <div className="child-form">
@@ -244,7 +244,7 @@ const UserList = () => {
                 //   },
                 // ]}
                 >
-                  <Input placeholder="Nhập Mật Khẩu Mới" />
+                  <Input type="password" placeholder="Nhập Mật Khẩu Mới" />
                 </Form.Item>
               </div>
             </div>
