@@ -149,6 +149,7 @@ const SideBar = () => {
         )}
         {user.role === "admin" && (
           <Link
+            to={"/reports"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Reports"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
