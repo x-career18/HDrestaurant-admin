@@ -1,8 +1,12 @@
 import React from 'react'
+import ComingSoon from '../../components/ComingSoon/ComingSoon'
 
 const ManageReceipts = () => {
   return (
-    <div>ManageReceipts</div>
+    <div style={{
+      marginTop: '10%',
+      marginLeft: '25%',
+    }}><ComingSoon /></div>
   )
 }
 
