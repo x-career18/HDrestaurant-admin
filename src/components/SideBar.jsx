@@ -77,7 +77,7 @@ const SideBar = () => {
             Verify Restaurants
           </Link>
         )}
-        {user.role === "admin" && (
+        {user.role === "manager" && (
           <Link
             to={"/new-restaurant"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${

@@ -25,9 +25,17 @@ const fetchUserManager = () => {
     return api.get(`/users/manage${randomQuery}`);
 };
 
+const fetchNewManager = () => {
+    return axios.get(`/api/v1/users/manage?sort=createdAt:desc&limit=10`)
+}
+
 const fetchUserEmployee = () => {
     return api.get(`/users/employee${randomQuery}`);
 };
+
+const fetchNewEmployee = () => {
+    return axios.get(`/api/v1/users/employee?sort=createdAt:desc&limit=10`)
+}
 
 const fetchUserUpdate = (id, data) => {
     return api.put(`/users/${id}`, data);
@@ -40,5 +48,7 @@ export {
     fetchUserManager,
     fetchUserUpdate,
     fetchUserDelete,
-    fetchUserEmployee
+    fetchUserEmployee,
+    fetchNewManager,
+    fetchNewEmployee
 };

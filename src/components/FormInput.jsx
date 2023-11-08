@@ -4,7 +4,7 @@ const FormInput = ({ title, placeholder, type, name, onChange, isRequired }) => 
 
   return (
     <div className="inline-flex items-center gap-9">
-      <span className="w-28 text-neutral-600 text-base font-bold font-beVietnam leading-loose">
+      <span className="w-32 text-neutral-600 text-base font-bold font-beVietnam leading-loose">
         {title}
         {isRequired && <span className="font-semibold text-rose-500">*</span>}
       </span>

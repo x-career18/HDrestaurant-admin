@@ -41,7 +41,7 @@ const RestaurantList = () => {
     },
     {
       width: 400,
-      title: "ID Restaurant",
+      title: "Restaurant ID",
       dataIndex: "idRestaurant",
       key: "idRestaurant",
     },

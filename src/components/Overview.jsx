@@ -1,6 +1,16 @@
 import React from "react";
 
-const Overview = () => {
+const Overview = ({
+  firstNumber,
+  secondNumber,
+  thirdNumber,
+  firstTitle,
+  firstText,
+  secondTitle,
+  sencondText,
+  thirdTitle,
+  thirdText,
+}) => {
   return (
     <main className="w-full h-40 inline-flex justify-evenly">
       <div
@@ -9,10 +19,10 @@ const Overview = () => {
       >
         <div>
           <h2 className="text-sky-500 text-4xl font-bold font-beVietnam leading-10">
-            212 nhân viên
+            {firstNumber} {firstText}
           </h2>
           <span className="text-zinc-400 text-lg font-bold font-beVietnam leading-10">
-            Tổng số nhân viên
+            {firstTitle}
           </span>
         </div>
         <img className="w-24" src="src/assets/icons/meeting.svg" />
@@ -23,10 +33,10 @@ const Overview = () => {
       >
         <div>
           <h2 className="text-rose-500 text-4xl font-bold font-beVietnam leading-10">
-            20 nhân viên
+            {secondNumber} {sencondText}
           </h2>
           <span className="text-zinc-400 text-lg font-bold font-beVietnam leading-10">
-            Số nhân viên mới
+            {secondTitle}
           </span>
         </div>
         <img className="w-24" src="src/assets/icons/leader.svg" />
@@ -37,10 +47,10 @@ const Overview = () => {
       >
         <div>
           <h2 className="text-amber-400 text-4xl font-bold font-beVietnam leading-10">
-            20 nhà hàng
+            {thirdNumber} {thirdText}
           </h2>
           <span className="text-zinc-400 text-lg font-bold font-beVietnam leading-10">
-            Tổng số nhà hàng
+            {thirdTitle}
           </span>
         </div>
         <img className="w-24" src="src/assets/icons/money.svg" />
