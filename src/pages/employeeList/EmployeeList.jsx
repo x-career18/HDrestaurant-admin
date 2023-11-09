@@ -143,7 +143,7 @@ const EmployeeList = () => {
       <BreadCrumb />
       <section className="flex flex-col pb-10 mx-10 mb-10">
         <h4 className="text-neutral-600 text-xl font-bold font-beVietnam leading-10">
-          Danh sách quản lý
+          Danh sách nhân viên
         </h4>
         <div style={{ width: '100%', height: '100%' }}>
           <Table
