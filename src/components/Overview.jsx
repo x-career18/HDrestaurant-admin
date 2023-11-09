@@ -1,15 +1,18 @@
 import React from "react";
 
 const Overview = ({
-  firstNumber,
-  secondNumber,
-  thirdNumber,
-  firstTitle,
-  firstText,
-  secondTitle,
-  sencondText,
-  thirdTitle,
-  thirdText,
+  number1,
+  number2,
+  number3,
+  title1,
+  text1,
+  title2,
+  text2,
+  title3,
+  text3,
+  img1,
+  img2,
+  img3,
 }) => {
   return (
     <main className="w-full h-40 inline-flex justify-evenly">
@@ -19,13 +22,13 @@ const Overview = ({
       >
         <div>
           <h2 className="text-sky-500 text-4xl font-bold font-beVietnam leading-10">
-            {firstNumber} {firstText}
+            {number1} {text1}
           </h2>
           <span className="text-zinc-400 text-lg font-bold font-beVietnam leading-10">
-            {firstTitle}
+            {title1}
           </span>
         </div>
-        <img className="w-24" src="src/assets/icons/meeting.svg" />
+        <img className="w-24" src={img1} />
       </div>
       <div
         className="px-14 h-36 inline-flex items-center justify-center bg-white gap-10
@@ -33,13 +36,13 @@ const Overview = ({
       >
         <div>
           <h2 className="text-rose-500 text-4xl font-bold font-beVietnam leading-10">
-            {secondNumber} {sencondText}
+            {number2} {text2}
           </h2>
           <span className="text-zinc-400 text-lg font-bold font-beVietnam leading-10">
-            {secondTitle}
+            {title2}
           </span>
         </div>
-        <img className="w-24" src="src/assets/icons/leader.svg" />
+        <img className="w-24" src={img2} />
       </div>
       <div
         className="px-14 h-36 inline-flex items-center justify-center bg-white gap-10 
@@ -47,13 +50,13 @@ const Overview = ({
       >
         <div>
           <h2 className="text-amber-400 text-4xl font-bold font-beVietnam leading-10">
-            {thirdNumber} {thirdText}
+            {number3} {text3}
           </h2>
           <span className="text-zinc-400 text-lg font-bold font-beVietnam leading-10">
-            {thirdTitle}
+            {title3}
           </span>
         </div>
-        <img className="w-24" src="src/assets/icons/money.svg" />
+        <img className="w-24" src={img3} />
       </div>
     </main>
   );

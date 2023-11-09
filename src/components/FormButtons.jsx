@@ -6,14 +6,14 @@ const FormButtons = ({ btnName1, btnName2, btnType1, btnType2, btn1Disabled, btn
       <button
         type={btnType1}
         disabled={btn1Disabled}
-        className="w-36 h-10 bg-green-500 text-center text-white text-base font-bold font-['Be Vietnam Pro'] leading-loose tracking-tight"
+        className="w-36 h-10 bg-green-500 text-center text-white text-sm font-bold font-beVietnam leading-loose tracking-tight"
       >
         {btnName1}
       </button>
       <button
         type={btnType2}
         disabled={btn2Disabled}
-        className="w-20 h-10 bg-neutral-400 text-center text-white text-base font-bold font-['Be Vietnam Pro'] leading-loose tracking-tight"
+        className="w-20 h-10 bg-neutral-400 text-center text-white text-sm font-bold font-beVietnam leading-loose tracking-tight"
       >
         {btnName2}
       </button>

@@ -148,15 +148,18 @@ const HomeAdmin = () => {
     <div className="bg-slate-100 grow h-screen flex flex-col">
       <BreadCrumb />
       <Overview
-        firstNumber={allUsers}
-        secondNumber={allNewUsers}
-        thirdNumber={allRestaurants}
-        firstText={"nhân viên"}
-        firstTitle={"Tổng số nhân viên"}
-        sencondText={"nhân viên"}
-        secondTitle={"Số nhân viên mới"}
-        thirdText={"nhà hàng"}
-        thirdTitle={"Tổng số nhà hàng"}
+        number1={allUsers}
+        number2={allNewUsers}
+        number3={allRestaurants}
+        text1={"nhân viên"}
+        title1={"Tổng số nhân viên"}
+        text2={"nhân viên"}
+        title2={"Số nhân viên mới"}
+        text3={"nhà hàng"}
+        title3={"Tổng số nhà hàng"}
+        img1={"src/assets/icons/meeting.svg"}
+        img2={"src/assets/icons/leader.svg"}
+        img3={"src/assets/icons/money.svg"}
       />
       <div className="mx-12 mt-12">
         <h5 className="font-bold text-lg mb-5 font-beVietnam">
