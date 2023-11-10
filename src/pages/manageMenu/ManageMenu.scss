@@ -1,0 +1,24 @@
+.main-table {
+  thead {
+    th,
+    td {
+      background-color: #fff !important;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: #969696 !important;
+
+      &:before {
+        display: none !important;
+      }
+    }
+  }
+  .ant-table-cell{
+    text-align: center !important;
+  }
+}
+
+
+.ant-table-tbody {
+  cursor: pointer;
+}
