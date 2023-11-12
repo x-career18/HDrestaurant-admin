@@ -21,7 +21,7 @@ const HomeManager = () => {
         ]);
         const manager = JSON.parse(localStorage.getItem("user"));
         const matchingRestaurant = restaurantRes.data.find(
-          (restaurant) => restaurant.idManager === manager?.id
+           (restaurant) => restaurant.idManager === manager.id
         );
 
         if (matchingRestaurant) {
