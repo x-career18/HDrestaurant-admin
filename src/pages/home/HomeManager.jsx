@@ -4,21 +4,49 @@ import Overview from "../../components/Overview";
 import { fetchBookings } from "../../services/BookingServices";
 import { Table } from "antd";
 import moment from "moment";
+import { fetchRestaurants } from "../../services/RestaurantServices";
 
 const HomeManager = () => {
+  const [myRestaurant, setMyRestaurant] = useState(null)
+  const manager = JSON.parse(localStorage.getItem("user"));
   const [numBookings, setNumBookings] = useState([]);
   const [latestBookings, setLatestBookings] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getBookings();
+    getRestaurant()
+  }, []);
+
+  const getRestaurant = async () => {
+    try {
+      const res = await fetchRestaurants()
+      const matchingRestaurant = res.data.find(
+        (restaurant) => restaurant.idManager === manager.id
+      )
+      if (res && res.data && matchingRestaurant) {
+        setMyRestaurant(matchingRestaurant)
+      }
+      console.log(myRestaurant)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const getBookings = async () => {
     setLoading(true);
     try {
       const res = await fetchBookings();
-      if (res && res.data) {
-        const sortedBookings = res.data.sort((a, b) => {
-          moment(b.bookingTime).diff(moment(a.bookingTime));
-        });
-        setNumBookings(res.data);
+      if (res && res.data && myRestaurant) {
+        const matchingBookings = res.data.filter(
+          (booking) => booking.restaurantId === myRestaurant._id
+        );
+        const sortedBookings = matchingBookings.sort((a, b) =>
+          moment(b.bookingTime).diff(moment(a.bookingTime))
+        );
+        setNumBookings(matchingBookings);
         setLatestBookings(sortedBookings.slice(0, 10));
+        console.log(sortedBookings);
       }
     } catch (error) {
       console.log(error);
@@ -26,10 +54,6 @@ const HomeManager = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    getBookings();
-  }, []);
 
   const columns = [
     {

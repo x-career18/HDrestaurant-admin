@@ -22,6 +22,10 @@ const ManageRestaurant = () => {
   const { isFetching, dispatch } = useContext(RestaurantContext);
   const manager = JSON.parse(localStorage.getItem("user"));
 
+  useEffect(() => {
+    getRestaurant();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -86,10 +90,6 @@ const ManageRestaurant = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getRestaurant();
-  }, []);
 
   return (
     <main className="bg-slate-100 grow flex flex-col">
