@@ -7,7 +7,6 @@ import moment from "moment";
 import { fetchRestaurants } from "../../services/RestaurantServices";
 
 const HomeManager = () => {
-  const manager = JSON.parse(localStorage.getItem("user"));
   const [numBookings, setNumBookings] = useState([]);
   const [latestBookings, setLatestBookings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,9 +19,9 @@ const HomeManager = () => {
           fetchRestaurants(),
           fetchBookings(),
         ]);
-
+        const manager = JSON.parse(localStorage.getItem("user"));
         const matchingRestaurant = restaurantRes.data.find(
-          (restaurant) => restaurant.idManager === manager.id
+           (restaurant) => restaurant.idManager === manager.id
         );
 
         if (matchingRestaurant) {
@@ -43,7 +42,7 @@ const HomeManager = () => {
     };
 
     fetchData();
-  }, [manager.id]);
+  }, []);
 
   const columns = [
     {

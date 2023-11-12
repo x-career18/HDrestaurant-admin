@@ -89,7 +89,7 @@ const ManageRestaurant = () => {
 
   useEffect(() => {
     getMyRestaurant();
-  }, [manager.id]);
+  }, []);
 
   return (
     <main className="bg-slate-100 grow flex flex-col">
