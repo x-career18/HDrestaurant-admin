@@ -43,7 +43,7 @@ const HomeManager = () => {
     };
 
     fetchData();
-  }, [manager.id]);
+  }, []);
 
   const columns = [
     {
