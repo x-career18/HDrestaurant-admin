@@ -7,53 +7,43 @@ import moment from "moment";
 import { fetchRestaurants } from "../../services/RestaurantServices";
 
 const HomeManager = () => {
-  const [myRestaurant, setMyRestaurant] = useState(null)
   const manager = JSON.parse(localStorage.getItem("user"));
   const [numBookings, setNumBookings] = useState([]);
   const [latestBookings, setLatestBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getBookings();
-    getRestaurant()
-  }, []);
+    setLoading(true)
+    const fetchData = async () => {
+      try {
+        const [restaurantRes, bookingsRes] = await Promise.all([
+          fetchRestaurants(),
+          fetchBookings(),
+        ]);
 
-  const getRestaurant = async () => {
-    try {
-      const res = await fetchRestaurants()
-      const matchingRestaurant = res.data.find(
-        (restaurant) => restaurant.idManager === manager.id
-      )
-      if (res && res.data && matchingRestaurant) {
-        setMyRestaurant(matchingRestaurant)
-      }
-      console.log(myRestaurant)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+        const matchingRestaurant = restaurantRes.data.find(
+          (restaurant) => restaurant.idManager === manager.id
+        );
 
-  const getBookings = async () => {
-    setLoading(true);
-    try {
-      const res = await fetchBookings();
-      if (res && res.data && myRestaurant) {
-        const matchingBookings = res.data.filter(
-          (booking) => booking.restaurantId === myRestaurant._id
-        );
-        const sortedBookings = matchingBookings.sort((a, b) =>
-          moment(b.bookingTime).diff(moment(a.bookingTime))
-        );
-        setNumBookings(matchingBookings);
-        setLatestBookings(sortedBookings.slice(0, 10));
-        console.log(sortedBookings);
+        if (matchingRestaurant) {
+          const matchingBookings = bookingsRes.data.filter(
+            (booking) => booking.restaurantId === matchingRestaurant._id
+          );
+          const sortedBookings = matchingBookings.sort((a, b) =>
+            moment(b.bookingTime).diff(moment(a.bookingTime))
+          );
+          setNumBookings(matchingBookings);
+          setLatestBookings(sortedBookings.slice(0, 10));
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchData();
+  }, [manager.id]);
 
   const columns = [
     {
@@ -124,6 +114,8 @@ const HomeManager = () => {
           loading={loading}
         />
       </div>
+      {/* <button onClick={getMyRestaurant}>get my restaurant now bitch</button>
+      <button onClick={getBookings}>get my mdfk ordeeeeeeeers</button> */}
     </div>
   );
 };

@@ -22,10 +22,6 @@ const ManageRestaurant = () => {
   const { isFetching, dispatch } = useContext(RestaurantContext);
   const manager = JSON.parse(localStorage.getItem("user"));
 
-  useEffect(() => {
-    getRestaurant();
-  }, []);
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -74,10 +70,10 @@ const ManageRestaurant = () => {
     e.preventDefault();
     updateRestaurant(myRestaurant._id, restaurant, dispatch);
     message.success("Cập nhật thành công");
-    getRestaurant();
+    getMyRestaurant();
   };
 
-  const getRestaurant = async () => {
+  const getMyRestaurant = async () => {
     try {
       const res = await fetchRestaurants();
       const matchingRestaurant = res.data.find(
@@ -90,6 +86,10 @@ const ManageRestaurant = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getMyRestaurant();
+  }, [manager.id]);
 
   return (
     <main className="bg-slate-100 grow flex flex-col">
