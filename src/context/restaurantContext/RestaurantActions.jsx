@@ -1,13 +1,34 @@
+//get
+const getRestaurantStart = () => ({
+  type: "GET_REST_START",
+});
+const getRestaurantSuccess = (restaurants) => ({
+  type: "GET_REST_SUCCESS",
+  payload: restaurants,
+});
+const getRestaurantFailure = () => ({
+  type: "GET_REST_FAILURE",
+});
+
 //create
-export const createRestaurantStart = () => ({
+const createRestaurantStart = () => ({
   type: "CREATE_REST_START",
 });
 
-export const createRestaurantSuccess = (restaurant) => ({
+const createRestaurantSuccess = (restaurant) => ({
   type: "CREATE_REST_SUCCESS",
   payload: restaurant,
 });
 
-export const createRestaurantFailure = () => ({
+const createRestaurantFailure = () => ({
   type: "CREATE_REST_FAILURE",
 });
+
+export {
+  createRestaurantStart,
+  createRestaurantSuccess,
+  createRestaurantFailure,
+  getRestaurantStart,
+  getRestaurantSuccess,
+  getRestaurantFailure
+};

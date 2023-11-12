@@ -3,9 +3,22 @@ import {
   createRestaurantStart,
   createRestaurantSuccess,
   createRestaurantFailure,
+  getRestaurantStart,
+  getRestaurantSuccess,
+  getRestaurantFailure
 } from "./RestaurantActions";
 
-export const createRestaurant = async (restaurant, dispatch) => {
+const getRestaurant = async (dispatch) => {
+  dispatch(getRestaurantStart())
+  try {
+    const res = await axios.get("api/v1/restaurants")
+    dispatch(getRestaurantSuccess(res.data))
+  } catch (error) {
+    dispatch(getRestaurantFailure())
+  }
+}
+
+const createRestaurant = async (restaurant, dispatch) => {
   dispatch(createRestaurantStart());
   try {
     const res = await axios.post("api/v1/restaurants", restaurant, {
@@ -26,3 +39,5 @@ export const createRestaurant = async (restaurant, dispatch) => {
     }
   }
 };
+
+export { createRestaurant, getRestaurant };
