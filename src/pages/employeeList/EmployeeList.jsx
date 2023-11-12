@@ -82,7 +82,6 @@ const EmployeeList = () => {
     setLoading(true)
     try {
       const res = await fetchUserEmployee()
-      console.log(res);
       if (res && res.data) {
         setData(res.data);
       }
