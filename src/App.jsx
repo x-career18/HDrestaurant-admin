@@ -14,7 +14,6 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import NotFound from "./pages/notFound/NotFound";
 import RestaurantList from "./pages/restaurantList/RestaurantList";
-import NewRestaurant from "./pages/newRestaurant/NewRestaurant";
 import UserList from "./pages/userList/UserList";
 import EmployeeList from "./pages/employeeList/EmployeeList";
 import ManageMenu from "./pages/manageMenu/ManageMenu";
@@ -88,18 +87,6 @@ function App() {
                   <div className="flex">
                     <SideBar />
                     {user.role === "admin" && <ComingSoon />}
-                  </div>
-                </>
-              }
-            />
-            <Route
-              path="/new-restaurant"
-              element={
-                <>
-                  <TopBar />
-                  <div className="flex">
-                    <SideBar />
-                    {user.role === "manager" && <NewRestaurant />}
                   </div>
                 </>
               }

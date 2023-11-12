@@ -24,11 +24,28 @@ const createRestaurantFailure = () => ({
   type: "CREATE_REST_FAILURE",
 });
 
+//update
+const updateRestaurantStart = () => ({
+  type: "UPDATE_REST_START",
+});
+
+const updateRestaurantSuccess = (restaurant) => ({
+  type: "UPDATE_REST_SUCCESS",
+  payload: restaurant,
+});
+
+const updateRestaurantFailure = () => ({
+  type: "UPDATE_REST_FAILURE",
+});
+
 export {
   createRestaurantStart,
   createRestaurantSuccess,
   createRestaurantFailure,
   getRestaurantStart,
   getRestaurantSuccess,
-  getRestaurantFailure
+  getRestaurantFailure,
+  updateRestaurantStart,
+  updateRestaurantSuccess,
+  updateRestaurantFailure,
 };

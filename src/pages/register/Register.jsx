@@ -10,21 +10,27 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [idRestaurant, setIdRestaurant] = useState("");
   const { isFetching, dispatch } = useContext(UserContext);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    register(
-      { email, fullname, phonenumber, password, idRestaurant },
-      dispatch
-    );
-    navigate("/");
+    try {
+      await register(
+        { email, fullname, phonenumber, password, idRestaurant },
+        dispatch
+      );
+      setMessage("");
+      navigate("/");
+    } catch (err) {
+      setMessage(err.message);
+    }
   };
 
   return (
     <main className="flex items-center justify-center py-5">
       <form className="w-96 flex flex-col gap-10 items-center">
-        <img className="w-44" src="src/assets/icons/restaurant.svg" />
+        <img className="w-36" src="src/assets/icons/restaurant.svg" />
         <section className="flex flex-col gap-7">
           <div className="flex flex-col gap-2">
             <span className="self-start text-neutral-600 text-base font-normal font-poppins">
@@ -146,11 +152,17 @@ const Register = () => {
             </div>
             <span className="text-sm text-neutral-600 font-normal font-poppins pt-2">
               Already have an account?{" "}
-              <Link to={"/"} className="underline">Login</Link>
+              <Link to={"/"} className="underline">
+                Login
+              </Link>
             </span>
           </div>
         </section>
-
+        {message && (
+          <div className="w-96 absolute bottom-20 right-[550px] text-red-500 text-sm font-normal font-poppins">
+            {message}
+          </div>
+        )}
         <button
           className="w-44 h-12 self-start bg-violet-500 rounded-lg hover:shadow-lg transistion duration-300"
           onClick={handleRegister}

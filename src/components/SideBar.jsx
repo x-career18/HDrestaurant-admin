@@ -79,20 +79,6 @@ const SideBar = () => {
         )}
         {user.role === "manager" && (
           <Link
-            to={"/new-restaurant"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Add Restaurant"
-                ? "bg-violet-500 bg-opacity-10 text-violet-500"
-                : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
-            onClick={() => setActiveTab("Add Restaurant")}
-          >
-            <PlusOne />
-            Add Restaurant
-          </Link>
-        )}
-        {user.role === "manager" && (
-          <Link
             to={"/menu"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
               activeTab === "Menu"

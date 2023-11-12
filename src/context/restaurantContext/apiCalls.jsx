@@ -5,18 +5,22 @@ import {
   createRestaurantFailure,
   getRestaurantStart,
   getRestaurantSuccess,
-  getRestaurantFailure
+  getRestaurantFailure,
+  updateRestaurantStart,
+  updateRestaurantSuccess,
+  updateRestaurantFailure,
 } from "./RestaurantActions";
 
-const getRestaurant = async (dispatch) => {
-  dispatch(getRestaurantStart())
+const getRestaurants = async (dispatch) => {
+  dispatch(getRestaurantStart());
   try {
-    const res = await axios.get("api/v1/restaurants")
-    dispatch(getRestaurantSuccess(res.data))
+    const res = await axios.get("api/v1/restaurants");
+    dispatch(getRestaurantSuccess(res.data));
+    console.log(res.data);
   } catch (error) {
-    dispatch(getRestaurantFailure())
+    dispatch(getRestaurantFailure());
   }
-}
+};
 
 const createRestaurant = async (restaurant, dispatch) => {
   dispatch(createRestaurantStart());
@@ -40,4 +44,19 @@ const createRestaurant = async (restaurant, dispatch) => {
   }
 };
 
-export { createRestaurant, getRestaurant };
+const updateRestaurant = async (id, updatedRestaurant, dispatch) => {
+  dispatch(updateRestaurantStart());
+  try {
+    const res = await axios.put("api/v1/restaurants/" + id, updatedRestaurant, {
+      headers: {
+        token: localStorage.getItem("accessToken"),
+      },
+    });
+    dispatch(updateRestaurantSuccess(res.data));
+    console.log("Updated")
+  } catch (error) {
+    dispatch(updateRestaurantFailure())
+  }
+};
+
+export { createRestaurant, getRestaurants, updateRestaurant };
