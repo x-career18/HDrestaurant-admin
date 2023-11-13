@@ -5,7 +5,10 @@ export const loginStart = () => ({
 
 export const loginSuccess = (user) => ({
   type: "LOGIN_SUCCESS",
-  payload: user,
+  payload: {
+    ...user,
+    restaurantId: user.restaurantId,
+  },
 });
 
 export const loginFailure = (error) => ({

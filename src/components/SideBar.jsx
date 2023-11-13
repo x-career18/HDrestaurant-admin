@@ -39,11 +39,10 @@ const SideBar = () => {
         </h6>
         <Link
           to={"/"}
-          className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-            activeTab === "Dashboard"
+          className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Dashboard"
               ? "bg-violet-500 bg-opacity-10 text-violet-500"
               : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-          }`}
+            }`}
           onClick={() => setActiveTab("Dashboard")}
         >
           <Dashboard />
@@ -52,11 +51,10 @@ const SideBar = () => {
         {user.role === "manager" && (
           <Link
             to={"/my-restaurant"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Restaurant"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Restaurant"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Restaurant")}
           >
             <Restaurant />
@@ -66,11 +64,10 @@ const SideBar = () => {
         {user.role === "admin" && (
           <Link
             to={"/restaurant-list"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Verify Restaurants"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Verify Restaurants"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Verify Restaurants")}
           >
             <ViewList />
@@ -80,11 +77,10 @@ const SideBar = () => {
         {user.role === "manager" && (
           <Link
             to={"/menu"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Menu"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Menu"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Menu")}
           >
             <MenuBook />
@@ -94,11 +90,10 @@ const SideBar = () => {
         {(user.role === "manager" || user.role === "employee") && (
           <Link
             to={"/receipts"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Receipts"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Receipts"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Receipts")}
           >
             <Receipt />
@@ -108,11 +103,10 @@ const SideBar = () => {
         {user.role === "admin" && (
           <Link
             to={"/user-list"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Users"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Users"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Users")}
           >
             <PeopleAlt />
@@ -122,11 +116,10 @@ const SideBar = () => {
         {user.role === "manager" && (
           <Link
             to={"/employee-list"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Employees"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Employees"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Employees")}
           >
             <PeopleAlt />
@@ -136,11 +129,10 @@ const SideBar = () => {
         {user.role === "admin" && (
           <Link
             to={"/reports"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Reports"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Reports"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Reports")}
           >
             <AssignmentTurnedIn />
@@ -149,11 +141,10 @@ const SideBar = () => {
         )}
         {user.role === "employee" && (
           <Link
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Guest Check-in"
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Guest Check-in"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Guest Check-in")}
           >
             <DoneAll />
@@ -162,11 +153,11 @@ const SideBar = () => {
         )}
         {user.role === "employee" && (
           <Link
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
-              activeTab === "Table Booking"
+            to={"/table-booking"}
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Table Booking"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-            }`}
+              }`}
             onClick={() => setActiveTab("Table Booking")}
           >
             <Book />

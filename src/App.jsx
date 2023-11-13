@@ -20,6 +20,7 @@ import ManageMenu from "./pages/manageMenu/ManageMenu";
 import ManageReceipts from "./pages/manageReceipts/ManageReceipts";
 import ManageRestaurant from "./pages/manageRestaurant/ManageRestaurant";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
+import TableBooking from "./pages/tableBook/TableBook";
 
 import { AuthContext } from "./context/authContext/AuthContext";
 
@@ -135,6 +136,18 @@ function App() {
                   <div className="flex">
                     <SideBar />
                     {user.role === "manager" && <ManageRestaurant />}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/table-booking"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "employee" && <TableBooking />}
                   </div>
                 </>
               }
