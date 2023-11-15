@@ -1,37 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import BreadCrumb from '../../components/BreadCrumb'
-import { Button, Popconfirm, Table } from 'antd'
+import { Button, DatePicker, Form, Input, InputNumber, Modal, Table, TimePicker, message } from 'antd'
 import moment from "moment";
+import './TableBook.scss'
 import { Add, DeleteOutlined, VerifiedUserOutlined, } from '@material-ui/icons'
-import { fetchBookings } from '../../services/BookingServices'
+import { fetchBookings, fetchCreateBooking, updateBooking, deleteBooking, } from '../../services/BookingServices'
 
 function TableBooking() {
-
-    const renderActions = (text, record) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Button
-                // onClick={() => showModal(record)}
-                style={{ border: 'none', backgroundColor: '#438AFE', color: '#FFF', padding: '0 10px' }}
-                icon={<VerifiedUserOutlined />}
-            >
-                Xác nhận
-            </Button>
-            <Popconfirm
-                title="Bạn có chắc muốn xóa đặt bàn này không?"
-                // onConfirm={() => handleDelete(record)}
-                okText="Có"
-                cancelText="Không"
-            >
-                <Button
-                    type="danger"
-                    style={{ backgroundColor: '#FF3B3B1A', borderColor: '#E92C2C', color: '#E92C2C', padding: '0 10px' }}
-                    icon={<DeleteOutlined />}
-                >
-                    Xóa
-                </Button>
-            </Popconfirm>
-        </div>
-    );
 
     const columns = [
         {
@@ -71,13 +46,12 @@ function TableBooking() {
             title: 'Trạng thái',
             dataIndex: 'status',
             key: 'status',
-            render: (pending) => (
+            render: (status) => (
                 <div className="flex items-center gap-10">
                     <span
-                        className={`w-20 text-center text-white p-1 rounded-3xl ${pending ? "bg-rose-500" : "bg-green-500"
-                            }`}
+                        className={`w-20 text-center text-white p-1 rounded-3xl ${status === "pending" ? "bg-rose-500" : "bg-green-500"}`}
                     >
-                        {pending ? "Pending" : "Active"}
+                        {status === "pending" ? "Pending" : "Active"}
                     </span>
                 </div>
             ),
@@ -85,36 +59,111 @@ function TableBooking() {
         {
             width: 100,
             title: 'Thao tác',
-            dataIndex: 'action',
-            key: 'action',
-            render: renderActions,
+            dataIndex: 'status',
+            key: 'status',
+            render: (status, record) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Button
+                        onClick={() => handleConfirm(record)}
+                        style={{ border: 'none', backgroundColor: '#438AFE', color: '#FFF', padding: '0 10px' }}
+                        icon={<VerifiedUserOutlined />}
+                    >
+                        Xác nhận
+                    </Button>
+                    <Button
+                        type="danger"
+                        onClick={() => handleDelete(record)}
+                        style={{ backgroundColor: '#FF3B3B1A', borderColor: '#E92C2C', color: '#E92C2C', padding: '0 10px' }}
+                        icon={<DeleteOutlined />}
+                    >
+                        Xóa
+                    </Button>
+                </div>
+            )
         },
 
     ];
     const [latestBookings, setLatestBookings] = useState([]);
+    const [form] = Form.useForm()
+    const formRef = useRef();
+    const [isOpenCreate, setIsOpenCreate] = useState(false);
+    const dateFormatList = ['DD/MM/YYYY'];
+
+    const showModal = () => {
+        setIsOpenCreate(true);
+    };
+
+    const handleCancel = () => {
+        setIsOpenCreate(false);
+        formRef.current.resetFields();
+    };
+
+    const fetchData = async () => {
+        try {
+            const res = await fetchBookings();
+            const employee = JSON.parse(localStorage.getItem("user"));
+            const matchingBookings = res.data.filter(
+                (booking) => booking.restaurantId === employee.restaurantId && booking.status === "pending"
+            );
+
+            setLatestBookings(matchingBookings);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetchBookings();
-                const employee = JSON.parse(localStorage.getItem("user"));
-                console.log('Employee:', employee);
-                const matchingBookings = res.data.filter(
-                    (booking) => booking.restaurantId === employee.restaurantId
-                );
-
-                const sortedBookings = matchingBookings.sort((a, b) =>
-                    moment(b.bookingTime).diff(moment(a.bookingTime))
-                );
-
-                setLatestBookings(sortedBookings.slice(0, 10));
-
-            } catch (error) {
-                console.log(error);
-            }
-        }
         fetchData();
-    }, [])
+    }, []);
+
+    const handleConfirm = async (record) => {
+        try {
+            const response = await updateBooking(record._id, { status: 'active' });
+            if (response && response.data) {
+                message.success("Xác nhận thành công");
+                fetchData();
+            }
+        } catch (error) {
+            console.log(error)
+            message.error("Xác nhận thất bại");
+        }
+    }
+
+    const handleDelete = async (record) => {
+        try {
+            const response = await deleteBooking(record._id);
+            if (response && response.data) {
+                message.success("Xóa thành công");
+                fetchData();
+            }
+        } catch (error) {
+            console.log(error)
+            message.error("Xóa thất bại");
+        }
+    };
+
+    const handleCreateBooking = async (values) => {
+        try {
+            const employee = JSON.parse(localStorage.getItem('user'));
+            const formattedValues = {
+                ...values,
+                restaurantId: employee.restaurantId,
+                bookingTime: moment(values.bookingTime, "HH:mm").format("HH:mm"),
+            };
+
+            const response = await fetchCreateBooking(formattedValues);
+            if (response && response.data) {
+                message.success('Đặt bàn mới thành công');
+                fetchData();
+                setIsOpenCreate(false);
+                formRef.current.resetFields();
+            }
+        } catch (error) {
+            console.log(error);
+            message.error('Đặt bàn mới thất bại');
+        }
+    };
 
     return (
         <main className="bg-slate-100 grow h-screen flex flex-col">
@@ -125,6 +174,7 @@ function TableBooking() {
                         Danh sách đặt bàn Online
                     </h4>
                     <Button
+                        onClick={showModal}
                         style={{ backgroundColor: '#35B968', borderColor: '#35B968', color: '#FFF', display: 'flex', alignItems: 'center' }}>
                         <Add />
                         Tạo bàn Offline
@@ -138,6 +188,152 @@ function TableBooking() {
                     />
                 </div>
             </section>
+            <Modal
+                title="Tạo mới đặt bàn offline"
+                width={450}
+                centered
+                open={isOpenCreate}
+                onCancel={handleCancel}
+                onOk={() => form.submit()}
+                okText="Tạo mới"
+                cancelText="Hủy"
+                className="modal-create"
+            >
+                <div>
+                    <Form
+                        layout="vertical"
+                        form={form}
+                        onFinish={handleCreateBooking}
+                        ref={formRef}
+                    >
+                        <div className="form-divide">
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Tên khách hàng"
+                                    name="fullName"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng nhập tên khách hàng',
+                                        },
+                                    ]}
+                                >
+                                    <Input placeholder="Nhập tên khách hàng" />
+                                </Form.Item>
+                            </div>
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Số điện thoại"
+                                    name="phoneNumber"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng nhập số điện thoại',
+                                        },
+                                        {
+                                            pattern:
+                                                /^(0?)(3[2-9]|5[2|5|6|8]|7[0|6-9]|8[0-9]|9[0-4|6-8])[0-9]{7}$/,
+                                            message: 'Số điện thoại không hợp lệ',
+                                        },
+                                    ]}
+                                >
+                                    <Input placeholder="Nhập số điện thoại" />
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div className="form-divide">
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Ngày đặt bàn"
+                                    name="bookingDate"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng nhập ngày đặt bàn',
+                                        },
+                                    ]}
+                                >
+                                    <DatePicker format={dateFormatList} />
+                                </Form.Item>
+                            </div>
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Giờ đặt bàn"
+                                    name="bookingTime"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng nhập giờ đặt bàn',
+                                        },
+                                    ]}
+                                >
+                                    <input type="time" className="booking-time" />
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div className="form-divide">
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Số lượng khách"
+                                    name="numberOfPeople"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng nhập số lượng khách',
+                                        },
+                                    ]}
+                                >
+                                    <InputNumber placeholder="Nhập số lượng khách" />
+                                </Form.Item>
+                            </div>
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Email"
+                                    name="email"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng nhập email',
+                                        },
+                                        {
+                                            validator: (_, value) =>{
+                                                if (!value || /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+                                                    return Promise.resolve();
+                                                  }
+                                                  return Promise.reject('Invalid email address');
+                                            
+                                            }
+                                        }
+                                    ]}
+                                >
+                                    <Input placeholder="Nhập email" />
+                                </Form.Item>
+                            </div>
+                        </div>
+                        <div className="form-divide">
+                            <div className="child-form">
+                                <Form.Item
+                                    label="Ghi chú"
+                                    name="message"
+                                >
+                                    <Input placeholder="Nhập ghi chú" />
+                                </Form.Item>
+                            </div>
+                            <div>
+                                <div className="child-form">
+                                    <Form.Item
+                                        label="Mã nhà hàng"
+                                        name="restaurantId"
+                                        initialValue={localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).restaurantId : ""}
+                                    >
+                                        <Input disabled />
+                                    </Form.Item>
+                                </div>
+                            </div>
+                        </div>
+                    </Form>
+                </div>
+            </Modal>
         </main>
     )
 }

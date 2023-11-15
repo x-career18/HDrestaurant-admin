@@ -23,4 +23,22 @@ const fetchBookings = () => {
   return api.get(`/bookings${randomQuery}`);
 };
 
-export { fetchBookings };
+const fetchCreateBooking = (data) => {
+  return api.post(`/bookings`, data);
+};
+
+const updateBooking = (id, data) => {
+  return api.put(`/bookings/${id}`, data);
+};
+
+const deleteBooking = (id) => {
+  return api.delete(`/bookings/${id}`);
+};
+
+
+export {
+  fetchBookings,
+  fetchCreateBooking,
+  updateBooking,
+  deleteBooking,
+};
