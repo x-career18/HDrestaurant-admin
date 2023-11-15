@@ -21,7 +21,7 @@ const HomeManager = () => {
         ]);
         const manager = JSON.parse(localStorage.getItem("user"));
         const matchingRestaurant = restaurantRes.data.find(
-           (restaurant) => restaurant.idManager === manager.id
+          (restaurant) => restaurant.idManager === manager.id
         );
 
         if (matchingRestaurant) {
@@ -74,8 +74,7 @@ const HomeManager = () => {
       render: (status) => (
         <div className="flex items-center gap-10">
           <span
-            className={`w-20 text-center text-white p-1 rounded-3xl ${status === "pending" ? "bg-rose-500" : "bg-green-500"
-              }`}
+            className={`w-20 text-center text-white p-1 rounded-3xl ${status === "pending" ? "bg-rose-500" : "bg-green-500"}`}
           >
             {status === "pending" ? "Pending" : "Active"}
           </span>
