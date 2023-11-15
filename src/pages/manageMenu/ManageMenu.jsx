@@ -11,7 +11,7 @@ const ManageMenu = () => {
   const renderActions = (text, record) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
       <Popconfirm
-        title="Bạn có chắc muốn xóa bản ghi này không?"
+        title="Bạn có chắc muốn xóa món này không?"
         onConfirm={() => handleDelete(record)}
         okText="Có"
         cancelText="Không"
@@ -76,7 +76,7 @@ const ManageMenu = () => {
     },
     {
       width: 100,
-      title: 'Hành động',
+      title: 'Thao tác',
       dataIndex: 'action',
       key: 'action',
       render: renderActions,
