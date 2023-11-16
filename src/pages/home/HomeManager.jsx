@@ -84,7 +84,7 @@ const HomeManager = () => {
   ];
 
   return (
-    <div className="bg-slate-100 grow h-screen flex flex-col">
+    <main className="bg-slate-100 grow h-screen flex flex-col">
       <BreadCrumb />
       <Overview
         number1={numBookings.length}
@@ -100,7 +100,7 @@ const HomeManager = () => {
         title3={"Tổng doanh thu"}
         img3={"src/assets/icons/money.svg"}
       />
-      <div className="mx-12 mt-12">
+      <section className="mx-12 mt-12">
         <h5 className="font-bold text-lg mb-5 font-beVietnam">
           Đơn đặt bàn gần đây
         </h5>
@@ -110,8 +110,13 @@ const HomeManager = () => {
           dataSource={latestBookings}
           loading={loading}
         />
+<<<<<<< Updated upstream
       </div>
     </div>
+=======
+      </section>
+    </main>
+>>>>>>> Stashed changes
   );
 };
 
