@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Search, Mail, NotificationsActive } from "@material-ui/icons";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext/AuthContext";
+import { fetchRestaurants } from "../services/RestaurantServices";
 
 const TopBar = () => {
   const { user } = useContext(AuthContext);
+  const [myRestaurant, setMyRestaurant] = useState(null);
+  const getMyRestaurant = async () => {
+    try {
+      const res = await fetchRestaurants();
+      const matchingRestaurant = res.data.find(
+        (restaurant) => restaurant.idManager === user.id || user.restaurantId
+      );
+      if (res && res.data && matchingRestaurant) {
+        setMyRestaurant(matchingRestaurant);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getMyRestaurant();
+  }, []);
+
   return (
-    <div className="inline-flex w-full">
+    <main className="inline-flex w-full">
       <section className="w-80 h-24 bg-violet-500 inline-flex items-center justify-center gap-3">
         <img className="h-16" src="src/assets/icons/restaurant.svg" />
-        <h3 className="text-amber-200 font-waterBrush font-semibold text-5xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-          Xin Chào
-        </h3>
+        <div>
+          <h3 className="text-amber-200 font-waterBrush font-semibold text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            Xin Chào,
+          </h3>
+          <h3 className="text-amber-200 font-waterBrush font-semibold text-3xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            {myRestaurant && myRestaurant.name}
+          </h3>
+        </div>
       </section>
       <section className="Second h-24 inline-flex grow items-center justify-between gap-3 px-8 py-6">
         <div className="w-96 h-14 inline-flex items-center gap-3 text-zinc-400 bg-zinc-100 px-4">
@@ -31,7 +56,7 @@ const TopBar = () => {
           </span>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

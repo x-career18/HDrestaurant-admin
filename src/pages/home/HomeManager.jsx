@@ -12,7 +12,7 @@ const HomeManager = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const fetchData = async () => {
       try {
         const [restaurantRes, bookingsRes] = await Promise.all([
@@ -74,7 +74,9 @@ const HomeManager = () => {
       render: (status) => (
         <div className="flex items-center gap-10">
           <span
-            className={`w-20 text-center text-white p-1 rounded-3xl ${status === "pending" ? "bg-rose-500" : "bg-green-500"}`}
+            className={`w-20 text-center text-white p-1 rounded-3xl ${
+              status === "pending" ? "bg-rose-500" : "bg-green-500"
+            }`}
           >
             {status === "pending" ? "Pending" : "Active"}
           </span>
@@ -110,13 +112,8 @@ const HomeManager = () => {
           dataSource={latestBookings}
           loading={loading}
         />
-<<<<<<< Updated upstream
-      </div>
-    </div>
-=======
       </section>
     </main>
->>>>>>> Stashed changes
   );
 };
 
