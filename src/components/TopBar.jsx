@@ -11,7 +11,9 @@ const TopBar = () => {
     try {
       const res = await fetchRestaurants();
       const matchingRestaurant = res.data.find(
-        (restaurant) => restaurant.idManager === user.id || restaurant._id === user.restaurantId
+        (restaurant) =>
+          restaurant.idManager === user.id ||
+          restaurant._id === user.restaurantId
       );
       if (res && res.data && matchingRestaurant) {
         setMyRestaurant(matchingRestaurant);
@@ -30,8 +32,12 @@ const TopBar = () => {
       <section className="w-80 h-24 bg-violet-500 inline-flex items-center justify-center gap-3">
         <img className="h-16" src="src/assets/icons/restaurant.svg" />
         <div>
-          <h3 className="text-amber-200 font-waterBrush font-semibold text-2xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-            Xin Chào,
+          <h3
+            className={`text-amber-200 font-waterBrush font-semibold ${
+              user.role === "admin" ? "text-5xl" : "text-2xl"
+            } drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]`}
+          >
+            {user.role === "admin" ? "Xin Chào" : "Xin Chào,"}
           </h3>
           <h3 className="text-amber-200 font-waterBrush font-semibold text-3xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             {myRestaurant && myRestaurant.name}
