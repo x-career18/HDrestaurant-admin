@@ -21,7 +21,7 @@ const HomeEmployee = () => {
         ]);
         const employee = JSON.parse(localStorage.getItem("user"));
         const matchingRestaurant = restaurantRes.data.find(
-          (restaurant) => restaurant.id === employee.idRestaurant
+          (restaurant) => restaurant._id === employee.restaurantId
         );
 
         if (matchingRestaurant) {

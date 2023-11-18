@@ -11,7 +11,7 @@ const TopBar = () => {
     try {
       const res = await fetchRestaurants();
       const matchingRestaurant = res.data.find(
-        (restaurant) => restaurant.idManager === user.id || user.restaurantId
+        (restaurant) => restaurant.idManager === user.id || restaurant._id === user.restaurantId
       );
       if (res && res.data && matchingRestaurant) {
         setMyRestaurant(matchingRestaurant);
