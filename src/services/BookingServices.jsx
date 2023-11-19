@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from './customizeAxios.jsx';
 
 const api = axios.create({
   baseURL: "/api/v1",
