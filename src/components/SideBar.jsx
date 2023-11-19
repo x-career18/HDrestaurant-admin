@@ -141,14 +141,15 @@ const SideBar = () => {
         )}
         {user.role === "employee" && (
           <Link
+            to={"/guest-check"}
             className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Guest Check-in"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
               }`}
-            onClick={() => setActiveTab("Guest Check-in")}
+            onClick={() => setActiveTab("Guest Check")}
           >
             <DoneAll />
-            Guest Check-in
+            Guest Check
           </Link>
         )}
         {user.role === "employee" && (

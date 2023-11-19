@@ -21,6 +21,7 @@ import ManageReceipts from "./pages/manageReceipts/ManageReceipts";
 import ManageRestaurant from "./pages/manageRestaurant/ManageRestaurant";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import TableBooking from "./pages/tableBook/TableBook";
+import GuestCheck from "./pages/guestCheck/GuestCheck";
 
 import { AuthContext } from "./context/authContext/AuthContext";
 
@@ -148,6 +149,18 @@ function App() {
                   <div className="flex">
                     <SideBar />
                     {user.role === "employee" && <TableBooking />}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/guest-check"
+              element={
+                <>
+                  <TopBar />
+                  <div className="flex">
+                    <SideBar />
+                    {user.role === "employee" && <GuestCheck />}
                   </div>
                 </>
               }
