@@ -48,11 +48,9 @@ function App() {
                     <SideBar />
                     {user.role === "manager" ? (
                       <HomeManager />
-                    ) : user.role === "admin" ? (
+                    ) :  (
                       <HomeAdmin />
-                    ) : (
-                      <HomeEmployee />
-                    )}
+                    ) }
                   </div>
                 </>
               }
