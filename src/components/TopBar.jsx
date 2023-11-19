@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Search, Mail, NotificationsActive } from "@material-ui/icons";
+// import { Search, Mail, NotificationsActive } from "@material-ui/icons";
 import {
   MailOutlined,
   NotificationOutlined,
