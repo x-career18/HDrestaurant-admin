@@ -36,7 +36,7 @@ function App() {
         </Routes>
       )}
 
-      {user && (
+      {!user && (
         <>
           <Routes>
             <Route
