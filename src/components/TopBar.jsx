@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Search, Mail, NotificationsActive } from "@material-ui/icons";
-import { MailOutlined, NotificationOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  NotificationOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext/AuthContext";
 import { fetchRestaurants } from "../services/RestaurantServices";
@@ -47,7 +51,7 @@ const TopBar = () => {
       </section>
       <section className="Second h-24 inline-flex grow items-center justify-between gap-3 px-8 py-6">
         <div className="w-96 h-14 inline-flex items-center gap-3 text-zinc-400 bg-zinc-100 px-4">
-          <Search />
+          <SearchOutlined />
           <input
             type="text"
             placeholder="Search..."
