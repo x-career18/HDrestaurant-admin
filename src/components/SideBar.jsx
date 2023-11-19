@@ -13,6 +13,19 @@ import {
   MenuBook,
   PlusOne,
 } from "@material-ui/icons";
+
+import {
+  AppstoreFilled,
+  ReadOutlined,
+  LogoutOutlined,
+  ContainerOutlined,
+  TeamOutlined,
+  ShopFilled,
+  UnorderedListOutlined,
+  CustomerServiceOutlined,
+  ScheduleOutlined,
+  FileDoneOutlined
+} from "@ant-design/icons";
 import { AuthContext } from "../context/authContext/AuthContext";
 import { AppContext } from "../context/appContext/AppContext";
 
@@ -46,7 +59,7 @@ const SideBar = () => {
           }`}
           onClick={() => setActiveTab("Dashboard")}
         >
-          <Dashboard />
+          <AppstoreFilled />
           Dashboard
         </Link>
         {user.role === "manager" && (
@@ -59,7 +72,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Restaurant")}
           >
-            <Restaurant />
+            <ShopFilled />
             Restaurant
           </Link>
         )}
@@ -73,7 +86,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Verify Restaurants")}
           >
-            <ViewList />
+            <UnorderedListOutlined />
             Verify Restaurants
           </Link>
         )}
@@ -87,7 +100,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Menu")}
           >
-            <MenuBook />
+            <ReadOutlined />
             Menu
           </Link>
         )}
@@ -101,7 +114,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Receipts")}
           >
-            <Receipt />
+            <ContainerOutlined />
             Receipts
           </Link>
         )}
@@ -115,7 +128,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Users")}
           >
-            <PeopleAlt />
+            <TeamOutlined />
             Users
           </Link>
         )}
@@ -129,7 +142,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Employees")}
           >
-            <PeopleAlt />
+            <TeamOutlined />
             Employees
           </Link>
         )}
@@ -143,7 +156,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Reports")}
           >
-            <AssignmentTurnedIn />
+            <CustomerServiceOutlined />
             List of Reports
           </Link>
         )}
@@ -157,7 +170,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Guest Check-in")}
           >
-            <DoneAll />
+            <FileDoneOutlined />
             Guest Check-in
           </Link>
         )}
@@ -171,7 +184,7 @@ const SideBar = () => {
             }`}
             onClick={() => setActiveTab("Table Booking")}
           >
-            <Book />
+            <ScheduleOutlined />
             Table Booking
           </Link>
         )}
@@ -183,7 +196,7 @@ const SideBar = () => {
         className="text-gray-500 text-base font-bold font-beVietnam leading-10 gap-3 inline-flex h-14 pl-12 justify-center items-center hover:text-violet-500"
         onClick={handleLogout}
       >
-        <ExitToApp />
+        <LogoutOutlined />
         Logout
       </button>
     </main>

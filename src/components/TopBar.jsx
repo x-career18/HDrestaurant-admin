@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Search, Mail, NotificationsActive } from "@material-ui/icons";
+import { MailOutlined, NotificationOutlined } from "@ant-design/icons";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext/AuthContext";
 import { fetchRestaurants } from "../services/RestaurantServices";
@@ -54,8 +55,8 @@ const TopBar = () => {
           />
         </div>
         <div className="inline-flex items-center gap-4 text-zinc-400">
-          <Mail className="cursor-pointer" />
-          <NotificationsActive className="cursor-pointer" />
+          <MailOutlined className="cursor-pointer" />
+          <NotificationOutlined className="cursor-pointer" />
           <div className="w-10 h-10 rounded-full bg-blue-500 cursor-pointer" />
           <span className="text-gray-500 text-base font-bold font-beVietnam leading-tight">
             {user.fullname}
