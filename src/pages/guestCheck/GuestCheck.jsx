@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../../components/BreadCrumb'
 import moment from 'moment';
 import { Button, Table } from 'antd';
-import { DeleteOutlined, VerifiedUserOutlined } from '@material-ui/icons';
+
 import { fetchBookings } from '../../services/BookingServices';
 
 function GuestCheck() {
