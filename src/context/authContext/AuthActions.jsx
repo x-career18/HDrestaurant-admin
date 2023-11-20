@@ -8,6 +8,7 @@ export const loginSuccess = (user) => ({
   payload: {
     ...user,
     restaurantId: user.restaurantId,
+    employeeCode: user.employeeCode,
   },
 });
 

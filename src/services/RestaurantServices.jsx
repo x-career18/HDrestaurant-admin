@@ -1,45 +1,25 @@
 import axios from './customizeAxios.jsx';
 
-const api = axios.create({
-    baseURL: '/api/v1',
-});
-
-api.interceptors.request.use(
-    (config) => {
-        // Lấy token từ nơi bạn đã lưu nó, ví dụ trong localStorage hoặc biến khác
-        const token = localStorage.getItem('accessToken'); // Điền vào đây để lấy token
-
-        // Nếu có token, thêm nó vào header
-        if (token) {
-            config.headers.token = token;
-        }
-
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
 const randomQuery = `?_=${Math.random()}`;
 
 const fetchRestaurants = () => {
-    return api.get(`/restaurants${randomQuery}`);
+    return axios.get(`/api/v1/restaurants${randomQuery}`);
 }
 
 const fetchRestaurantById = (id) => {
-    return api.get(`/restaurants/${id}`);
+    return axios.get(`/api/v1/restaurants/${id}`);
 };
 
 const fetchRestaurantAll = () => {
-    return api.get('/restaurants/all');
+    return axios.get('/api/v1/restaurants/all');
 };
 
 const fetchUpdateRestaurant = (id, data) => {
-    return api.put(`/restaurants/${id}`, data);
+    return axios.put(`/api/v1/restaurants/${id}`, data);
 };
 
 const fetchDeleteRestaurant = (id) => {
-    return api.delete(`/restaurants/${id}`);
+    return axios.delete(`/api/v1/restaurants/${id}`);
 };
 
 export {
