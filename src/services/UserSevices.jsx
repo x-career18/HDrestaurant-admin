@@ -23,11 +23,11 @@ api.interceptors.request.use(
 
 const randomQuery = `?_=${Math.random()}`;
 const fetchUserManager = () => {
-    return api.get(`/users/manage${randomQuery}`);
+    return api.get(`/api/v1/users/manager${randomQuery}`);
 };
 
 const fetchNewManager = () => {
-    return axios.get(`/api/v1/users/manage?sort=createdAt:desc&limit=10`)
+    return axios.get(`/api/v1/users/manager?sort=createdAt:desc&limit=10`)
 }
 
 const fetchUserEmployee = () => {
