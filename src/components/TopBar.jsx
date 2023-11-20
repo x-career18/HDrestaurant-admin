@@ -34,7 +34,7 @@ const TopBar = () => {
   return (
     <main className="inline-flex w-full">
       <section className="w-80 h-24 bg-violet-500 inline-flex items-center justify-center gap-3">
-        <img className="h-16" src="src/assets/icons/restaurant.svg" />
+        <img className="h-16" src="images/assets/icons/restaurant.svg" />
         <div>
           <h3
             className={`text-amber-200 font-waterBrush font-semibold ${

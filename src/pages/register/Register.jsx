@@ -48,7 +48,7 @@ const Register = () => {
               <div className="w-12 h-12">
                 <div className="w-12 h-12 bg-violet-500 flex items-center justify-center rounded-lg">
                   <img
-                    src="src/assets/icons/mail.svg"
+                    src="images/assets/icons/mail.svg"
                     alt="mail"
                     className="w-6 h-6"
                   />
@@ -102,7 +102,7 @@ const Register = () => {
               <div className="w-12 h-12">
                 <div className="w-12 h-12 bg-violet-500 flex items-center justify-center rounded-lg">
                   <img
-                    src="src/assets/icons/lock.svg"
+                    src="images/assets/icons/lock.svg"
                     alt="mail"
                     className="w-6 h-6"
                   />
@@ -126,7 +126,7 @@ const Register = () => {
               <div className="w-12 h-12">
                 <div className="w-12 h-12 bg-violet-500 flex items-center justify-center rounded-lg">
                   <img
-                    src="src/assets/icons/lock.svg"
+                    src="images/assets/icons/lock.svg"
                     alt="mail"
                     className="w-6 h-6"
                   />

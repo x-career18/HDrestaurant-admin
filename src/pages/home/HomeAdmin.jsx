@@ -157,9 +157,9 @@ const HomeAdmin = () => {
         title2={"Số nhân viên mới"}
         text3={"nhà hàng"}
         title3={"Tổng số nhà hàng"}
-        img1={"src/assets/icons/meeting.svg"}
-        img2={"src/assets/icons/leader.svg"}
-        img3={"src/assets/icons/money.svg"}
+        img1={"images/assets/icons/meeting.svg"}
+        img2={"images/assets/icons/leader.svg"}
+        img3={"images/assets/icons/money.svg"}
       />
       <div className="mx-12 mt-12">
         <h5 className="font-bold text-lg mb-5 font-beVietnam">

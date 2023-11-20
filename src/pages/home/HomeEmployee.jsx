@@ -92,15 +92,15 @@ const HomeEmployee = () => {
         number1={numBookings.length}
         text1={"đơn"}
         title1={"Tổng đơn đặt bàn"}
-        img1={"src/assets/icons/box-checked.svg"}
+        img1={"images/assets/icons/box-checked.svg"}
         number2={latestBookings.length}
         text2={"đơn"}
         title2={"Đơn đặt bàn mới"}
-        img2={"src/assets/icons/bookings.svg"}
+        img2={"images/assets/icons/bookings.svg"}
         number3={"1"}
         text3={"money sum"}
         title3={"Tổng doanh thu"}
-        img3={"src/assets/icons/money.svg"}
+        img3={"images/assets/icons/money.svg"}
       />
       <section className="mx-12 mt-12">
         <h5 className="font-bold text-lg mb-5 font-beVietnam">
