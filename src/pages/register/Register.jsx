@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <main className="flex items-center justify-center py-5">
       <form className="w-96 flex flex-col gap-10 items-center">
-        <img className="w-36" src="src/assets/icons/restaurant.svg" />
+        <img className="w-36" src="images/assets/icons/restaurant.svg" />
         <section className="flex flex-col gap-7">
           <div className="flex flex-col gap-2">
             <span className="self-start text-neutral-600 text-base font-normal font-poppins">
