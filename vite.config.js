@@ -9,6 +9,8 @@ export default defineConfig({
             '/api/v1': {
                 target: 'https://hd-restaurant-be.onrender.com/',
                 changeOrigin: true,
+                secure: false,
+                ws: true,
             },
         },
     },
