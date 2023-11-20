@@ -155,7 +155,7 @@ const SideBar = () => {
               }`}
             onClick={() => setActiveTab("Guest Check")}
           >
-            <DoneAll />
+            <FileDoneOutlined />
             Guest Check
           </Link>
         )}
