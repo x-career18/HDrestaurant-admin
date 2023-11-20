@@ -9,6 +9,7 @@ import {
 } from "../../services/UserSevices.jsx";
 import "./UserList.scss";
 import { SettingOutlined } from "@ant-design/icons";
+import { fetchRestaurantAll } from "../../services/RestaurantServices.jsx";
 
 const UserList = () => {
   const columns = [
@@ -32,6 +33,17 @@ const UserList = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (text) => moment(text).format("DD/MM/YYYY"),
+    },
+    {
+      title: "Nhà Hàng",
+      dataIndex: "_id",
+      key: "_id",
+      render: (_id) => {
+        const restaurant = restaurants.find(
+          (restaurant) => restaurant.idManager === _id
+        );
+        return restaurant ? restaurant.name : "";
+      },
     },
     {
       width: 200,
@@ -73,6 +85,7 @@ const UserList = () => {
   const [form] = Form.useForm();
   const formRef = useRef();
   const [data, setData] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isOpenUpdateManager, setIsOpenUpdateManager] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -91,6 +104,7 @@ const UserList = () => {
     try {
       const response = await fetchUserManager();
       if (response && response.data) {
+        console.log(response.data);
         setData(response.data);
       }
     } catch (error) {
@@ -100,8 +114,20 @@ const UserList = () => {
     }
   };
 
+  const getRestaurants = async () => {
+    try {
+      const res = await fetchRestaurantAll();
+      if (res && res.data) {
+        setRestaurants(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getManager();
+    getRestaurants();
   }, []);
 
   const handleConfirm = async (record) => {
