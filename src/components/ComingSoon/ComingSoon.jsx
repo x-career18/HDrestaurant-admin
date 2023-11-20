@@ -16,7 +16,7 @@ const ComingSoon = () => {
                 </div>
                 <div className="phone-comp common-margin">
                     <Image
-                        src="src/assets/icons/restaurant.svg"
+                        src="images/assets/icons/restaurant.svg"
                         alt="phone"
                         width={28}
                         height={28}

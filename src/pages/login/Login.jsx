@@ -25,7 +25,7 @@ const Login = () => {
       <form className="w-96 flex flex-col gap-10 items-center">
         <img
           className="w-52"
-          src="src/assets/icons/restaurant.svg"
+          src="images/assets/icons/restaurant.svg"
         />
         <section className="flex flex-col gap-7">
           <div className="flex flex-col gap-2">
@@ -44,7 +44,7 @@ const Login = () => {
               <div className="w-12 h-12">
                 <div className="w-12 h-12 bg-violet-500 flex items-center justify-center rounded-lg">
                   <img
-                    src="src/assets/icons/mail.svg"
+                    src="images/assets/icons/mail.svg"
                     alt="mail"
                     className="w-6 h-6"
                   />
@@ -68,7 +68,7 @@ const Login = () => {
               <div className="w-12 h-12">
                 <div className="w-12 h-12 bg-violet-500 flex items-center justify-center rounded-lg">
                   <img
-                    src="src/assets/icons/lock.svg"
+                    src="images/assets/icons/lock.svg"
                     alt="mail"
                     className="w-6 h-6"
                   />

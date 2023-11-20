@@ -11,6 +11,7 @@ const AuthReducer = (state, action) => {
         user: {
           ...action.payload,
           restaurantId: action.payload.restaurantId,
+          employeeCode: action.payload.employeeCode,
         },
         isFetching: false,
         error: false,

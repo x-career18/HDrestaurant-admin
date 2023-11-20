@@ -4,7 +4,7 @@ import { Button, Form, Input, Modal, Table, message } from 'antd'
 import moment from 'moment';
 import { fetchUserEmployee, fetchUserUpdate, fetchUserDelete } from '../../services/UserSevices.jsx'
 import './EmployeeList.scss'
-import { SettingsOutlined } from '@material-ui/icons';
+import { SettingOutlined } from '@ant-design/icons';
 
 const EmployeeList = () => {
   const columns = [
@@ -55,7 +55,7 @@ const EmployeeList = () => {
             onClick={() => openUpdateManager(record._id)}
             style={{ border: 'none', backgroundColor: 'transparent' }}
           >
-            <SettingsOutlined />
+            <SettingOutlined />
           </Button>
         </div>
       ),

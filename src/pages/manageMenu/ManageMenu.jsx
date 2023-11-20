@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import BreadCrumb from '../../components/BreadCrumb'
 import { Button, Form, Input, Modal, Select, Table, message } from 'antd'
-import { Add, DeleteOutlined, SettingsOutlined } from '@material-ui/icons';
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  SettingOutlined
+} from "@ant-design/icons";
 import { Popconfirm } from 'antd';
 import { fetchMenus, fetchCreateMenus, fetchUpdateMenus, fetchDeleteMenus } from '../../services/MenuServices.jsx'
 import './ManageMenu.scss'
@@ -27,7 +31,7 @@ const ManageMenu = () => {
       <Button
         onClick={() => showModal(record)}
         style={{ border: 'none', backgroundColor: '#438AFE', color: '#FFF' }}
-        icon={<SettingsOutlined />}
+        icon={<SettingOutlined />}
       >
         Cập nhật
       </Button>
@@ -158,7 +162,7 @@ const ManageMenu = () => {
           <Button
             onClick={() => showModal(null)}
             style={{ backgroundColor: '#35B968', borderColor: '#35B968', color: '#FFF', display: 'flex', alignItems: 'center' }}>
-            <Add />
+            <PlusOutlined />
             Thêm món mới
           </Button>
         </div>

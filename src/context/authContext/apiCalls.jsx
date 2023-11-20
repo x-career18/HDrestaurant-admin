@@ -1,11 +1,12 @@
 import axios from "axios";
 import { loginFailure, loginStart, loginSuccess } from "./AuthActions";
 import { jwtDecode } from "jwt-decode";
+import { fetchLogin } from "../../services/authServices";
 
 export const login = async (user, dispatch) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post("api/v1/auth/login", user);
+    const res = await fetchLogin(user);
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${res.data.accessToken}`;

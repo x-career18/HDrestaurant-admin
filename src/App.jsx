@@ -124,7 +124,9 @@ function App() {
                   <TopBar />
                   <div className="flex">
                     <SideBar />
-                    {user.role === "manager" && <ManageReceipts />}
+                    {(user.role === "manager" || user.role === "employee") && (
+                      <ManageReceipts />
+                    )}
                   </div>
                 </>
               }
