@@ -5,15 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
     plugins: [react()],
     server: {
-        open: true,
-        proxy: {
-            '/api': {
-                target: 'https://hd-restaurant-be.onrender.com/',
-                changeOrigin: true,
-                secure: false,
-                ws: true,
-            },
-        },
+        port: 5173,
     },
 })
 
