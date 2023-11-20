@@ -1,1 +1,5 @@
 /* /index.html 200
+/api/v1/_ https://hd-restaurant-be.onrender.com/:splat 200
+/_ /index.html 200
+/\* /index.html 404
+
