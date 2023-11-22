@@ -9,6 +9,7 @@ export const loginSuccess = (user) => ({
     ...user,
     restaurantId: user.restaurantId,
     employeeCode: user.employeeCode,
+    idRestaurant: user.idRestaurant,
   },
 });
 
