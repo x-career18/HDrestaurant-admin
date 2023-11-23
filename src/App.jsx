@@ -21,8 +21,8 @@ import ManageReceipts from "./pages/manageReceipts/ManageReceipts";
 import ManageRestaurant from "./pages/manageRestaurant/ManageRestaurant";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import TableBooking from "./pages/tableBook/TableBook";
-import CheckIn from "./pages/checkIn/CheckIn";
 import ReportList from "./pages/reportList/ReportList";
+import GuestCheck from "./pages/guestCheck/GuestCheck";
 
 import { AuthContext } from "./context/authContext/AuthContext";
 
@@ -157,13 +157,13 @@ function App() {
               }
             />
             <Route
-              path="/check-in"
+              path="/guest-check"
               element={
                 <>
                   <TopBar />
                   <div className="flex">
                     <SideBar />
-                    {user.role === "employee" && <CheckIn />}
+                    {user.role === "employee" && <GuestCheck />}
                   </div>
                 </>
               }

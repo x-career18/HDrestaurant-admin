@@ -8,7 +8,6 @@ import {
   InputNumber,
   Modal,
   Table,
-  TimePicker,
   message,
 } from "antd";
 import moment from "moment";
@@ -67,9 +66,8 @@ function TableBooking() {
       render: (status) => (
         <div className="flex items-center gap-10">
           <span
-            className={`w-20 text-center text-white p-1 rounded-3xl ${
-              status === "pending" ? "bg-rose-500" : "bg-green-500"
-            }`}
+            className={`w-20 text-center text-white p-1 rounded-3xl ${status === "pending" ? "bg-rose-500" : "bg-green-500"
+              }`}
           >
             {status === "pending" ? "Pending" : "Active"}
           </span>
@@ -149,7 +147,13 @@ function TableBooking() {
 
   const handleConfirm = async (record) => {
     try {
-      const response = await updateBooking(record._id, { status: "active" });
+      const employee = JSON.parse(localStorage.getItem("user"));
+      console.log(employee);
+      const response = await updateBooking(record._id, {
+        employeeCode: employee.employeeCode,
+        employeeName: employee.fullname,
+        status: "active",
+      });
       if (response && response.data) {
         message.success("Xác nhận thành công");
         fetchData();
@@ -159,6 +163,7 @@ function TableBooking() {
       message.error("Xác nhận thất bại");
     }
   };
+
 
   const handleDelete = async (record) => {
     try {
