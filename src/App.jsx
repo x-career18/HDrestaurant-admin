@@ -22,6 +22,7 @@ import ManageRestaurant from "./pages/manageRestaurant/ManageRestaurant";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import TableBooking from "./pages/tableBook/TableBook";
 import CheckIn from "./pages/checkIn/CheckIn";
+import ReportList from "./pages/reportList/ReportList";
 
 import { AuthContext } from "./context/authContext/AuthContext";
 
@@ -88,7 +89,7 @@ function App() {
                   <TopBar />
                   <div className="flex">
                     <SideBar />
-                    {user.role === "admin" && <ComingSoon />}
+                    {user.role === "admin" && <ReportList />}
                   </div>
                 </>
               }

@@ -1,6 +1,5 @@
 import axios from './customizeAxios.jsx';
 
-
 const randomQuery = `?_=${Math.random()}`;
 
 const fetchBookings = () => {

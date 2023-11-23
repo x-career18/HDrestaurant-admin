@@ -11,6 +11,8 @@ import { fetchRestaurants } from "../services/RestaurantServices";
 const TopBar = () => {
   const { user } = useContext(AuthContext);
   const [myRestaurant, setMyRestaurant] = useState(null);
+  const [input, setInput] = useState("");
+
   const getMyRestaurant = async () => {
     try {
       const res = await fetchRestaurants();
@@ -54,6 +56,7 @@ const TopBar = () => {
           <input
             type="text"
             placeholder="Search..."
+            onChange={(e) => setInput(e.target.value)}
             className="w-full font-beVietnam outline-none bg-transparent focus:text-black"
           />
         </div>
