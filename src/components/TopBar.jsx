@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import {
+  FileTextOutlined,
   MailOutlined,
   NotificationOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { useContext } from "react";
 import { AuthContext } from "../context/authContext/AuthContext";
 import { fetchRestaurants } from "../services/RestaurantServices";
+import { createReport } from "../services/ReportServices";
+import { FloatButton, Form, message, Input, Modal, Button } from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 const TopBar = () => {
   const { user } = useContext(AuthContext);
   const [myRestaurant, setMyRestaurant] = useState(null);
-  const [input, setInput] = useState("");
 
   const getMyRestaurant = async () => {
     try {
@@ -32,6 +34,36 @@ const TopBar = () => {
   useEffect(() => {
     getMyRestaurant();
   }, []);
+
+  const [form] = Form.useForm();
+  const formRef = useRef();
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    formRef.current.resetFields();
+    setOpen(false);
+  };
+
+  const handleCreateReport = async (values) => {
+    try {
+      const inputValues = {
+        ...values,
+        fullName: user.fullname,
+        email: user.email,
+      };
+      const res = await createReport(inputValues);
+      if (res && res.data) {
+        message.success("Report sent.");
+        formRef.current.resetFields();
+      }
+    } catch (error) {
+      console.log(error);
+      message.error("Create new report failed!");
+    }
+  };
 
   return (
     <main className="inline-flex w-full">
@@ -68,6 +100,63 @@ const TopBar = () => {
             {user.fullname}
           </span>
         </div>
+
+        {(user.role === "manager" || user.role === "employee") && (
+          <FloatButton
+            icon={<FileTextOutlined />}
+            onClick={showModal}
+            description="HELP"
+            shape="square"
+            className="right-28"
+          />
+        )}
+        <Modal
+          title="Report an issue"
+          centered
+          open={open}
+          onCancel={handleCancel}
+          onOk={() => form.submit()}
+          footer={[
+            <Button key="cancel">Hủy</Button>,
+            <Button key="ok">Gửi</Button>,
+          ]}
+        >
+          <Form
+            form={form}
+            onFinish={handleCreateReport}
+            ref={formRef}
+            layout="vertical"
+          >
+            <div>
+              <Form.Item
+                label="Tên nhân viên:"
+                name="fullname"
+                initialValue={user ? user.fullname : ""}
+              >
+                <Input disabled />
+              </Form.Item>
+              <Form.Item
+                label="Email:"
+                name="email"
+                initialValue={user ? user.email : ""}
+              >
+                <Input disabled />
+              </Form.Item>
+            </div>
+            <Form.Item
+              label="Mô tả vấn đề bạn đang gặp phải:"
+              name="message"
+              rules={[
+                { required: true, message: "Bắt buộc phải nhập mô tả vấn đề!" },
+              ]}
+            >
+              <TextArea
+                placeholder="Nhập mô tả..."
+                style={{ resize: "none", height: 100 }}
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
       </section>
     </main>
   );

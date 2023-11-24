@@ -157,7 +157,7 @@ function App() {
               }
             />
             <Route
-              path="/guest-check"
+              path="/guest-checkin"
               element={
                 <>
                   <TopBar />

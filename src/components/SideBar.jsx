@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   AppstoreFilled,
@@ -10,7 +10,7 @@ import {
   UnorderedListOutlined,
   CustomerServiceOutlined,
   ScheduleOutlined,
-  FileDoneOutlined
+  FileDoneOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../context/authContext/AuthContext";
 import { AppContext } from "../context/appContext/AppContext";
@@ -30,6 +30,7 @@ const SideBar = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/");
   };
+
   return (
     <main className="w-80 h-96">
       <section className="flex flex-col pt-10">
@@ -148,15 +149,16 @@ const SideBar = () => {
         )}
         {user.role === "employee" && (
           <Link
-            to={"/guest-check"}
-            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${activeTab === "Guest Check-in"
+            to={"/guest-checkin"}
+            className={`text-base text-gray-500 font-normal font-beVietnam leading-10 h-16 pl-12 inline-flex items-center gap-4 ${
+              activeTab === "Guest Check-in"
                 ? "bg-violet-500 bg-opacity-10 text-violet-500"
                 : "hover:bg-violet-500 hover:bg-opacity-10 hover:text-violet-500"
-              }`}
-            onClick={() => setActiveTab("Guest Check")}
+            }`}
+            onClick={() => setActiveTab("Guest Check-in")}
           >
             <FileDoneOutlined />
-            Guest Check
+            Guest Check-in
           </Link>
         )}
         {user.role === "employee" && (
