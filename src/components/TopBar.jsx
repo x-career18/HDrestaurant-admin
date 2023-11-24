@@ -115,10 +115,18 @@ const TopBar = () => {
           centered
           open={open}
           onCancel={handleCancel}
-          onOk={() => form.submit()}
           footer={[
-            <Button key="cancel">Hủy</Button>,
-            <Button key="ok">Gửi</Button>,
+            <Button key="cancel" onClick={handleCancel}>
+              Hủy
+            </Button>,
+            <Button
+              key="ok"
+              onClick={() => {
+                form.submit(), setOpen(false);
+              }}
+            >
+              Gửi
+            </Button>,
           ]}
         >
           <Form
