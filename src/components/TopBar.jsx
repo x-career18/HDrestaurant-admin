@@ -122,7 +122,7 @@ const TopBar = () => {
             <Button
               key="ok"
               onClick={() => {
-                form.submit(), setOpen(false);
+                form.submit();
               }}
             >
               Gửi
