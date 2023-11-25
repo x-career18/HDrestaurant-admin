@@ -2,22 +2,26 @@ import React, { useEffect, useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import Overview from "../../components/Overview";
 import { fetchBookings } from "../../services/BookingServices";
+import { fetchRestaurants } from "../../services/RestaurantServices";
+import { fetchBills } from "../../services/billsServices";
 import { Table } from "antd";
 import moment from "moment";
-import { fetchRestaurants } from "../../services/RestaurantServices";
+
 
 const HomeEmployee = () => {
   const [numBookings, setNumBookings] = useState([]);
   const [latestBookings, setLatestBookings] = useState([]);
+  const [revenue, setRevenue] = useState(0)
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
       try {
-        const [restaurantRes, bookingsRes] = await Promise.all([
+        const [restaurantRes, bookingsRes, billRes] = await Promise.all([
           fetchRestaurants(),
           fetchBookings(),
+          fetchBills(),
         ]);
         const employee = JSON.parse(localStorage.getItem("user"));
         const matchingRestaurant = restaurantRes.data.find(
@@ -31,8 +35,15 @@ const HomeEmployee = () => {
           const sortedBookings = matchingBookings.sort((a, b) =>
             moment(b.bookingTime).diff(moment(a.bookingTime))
           );
+          const matchingBills = billRes.data.filter(
+            (bill) => bill.idRestaurant === matchingRestaurant.idRestaurant
+          );
+
           setNumBookings(matchingBookings);
           setLatestBookings(sortedBookings.slice(0, 10));
+          setRevenue(
+            matchingBills.reduce((sum, bill) => sum + bill.totalAmount, 0)
+          );
         }
       } catch (error) {
         console.log(error);
@@ -97,8 +108,8 @@ const HomeEmployee = () => {
         text2={"đơn"}
         title2={"Đơn đặt bàn mới"}
         img2={"images/assets/icons/bookings.svg"}
-        number3={"1"}
-        text3={"money sum"}
+        number3={revenue.toLocaleString("en-US", { maximumFractionDigits: 2 })}
+        text3={"VND"}
         title3={"Tổng doanh thu"}
         img3={"images/assets/icons/money.svg"}
       />
