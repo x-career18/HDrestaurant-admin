@@ -17,7 +17,9 @@ import RestaurantList from "./pages/restaurantList/RestaurantList";
 import UserList from "./pages/userList/UserList";
 import EmployeeList from "./pages/employeeList/EmployeeList";
 import ManageMenu from "./pages/manageMenu/ManageMenu";
-import ManageReceipts from "./pages/manageReceipts/ManageReceipts";
+import ManageReceipts from "./pages/manageReceipts/ReceiptsManager";
+import ReceiptsManager from "./pages/manageReceipts/ReceiptsManager";
+import ReceiptsEmployee from "./pages/manageReceipts/ReceiptsEmployee";
 import ManageRestaurant from "./pages/manageRestaurant/ManageRestaurant";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import TableBooking from "./pages/tableBook/TableBook";
@@ -125,8 +127,10 @@ function App() {
                   <TopBar />
                   <div className="flex">
                     <SideBar />
-                    {(user.role === "manager" || user.role === "employee") && (
-                      <ManageReceipts />
+                    {user.role === "manager" ? (
+                      <ReceiptsManager />
+                    ) : (
+                      user.role === "employee" && <ReceiptsEmployee />
                     )}
                   </div>
                 </>
