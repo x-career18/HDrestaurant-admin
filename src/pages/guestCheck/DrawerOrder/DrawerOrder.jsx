@@ -111,7 +111,6 @@ function DrawerOrder(props) {
         try {
             const response = await fetchMenus();
             if (response && response.data) {
-                console.log(response?.data, 123123);
                 const mappingData = (response?.data || []).map((item) => ({
                     ...item,
                     key: item?._id,
