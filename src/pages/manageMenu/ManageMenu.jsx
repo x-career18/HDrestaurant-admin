@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import BreadCrumb from '../../components/BreadCrumb'
-import { Button, Form, Input, Modal, Select, Table, message } from 'antd'
+import { Button, Form, Input, InputNumber, Modal, Select, Table, message } from 'antd'
 import {
   PlusOutlined,
   DeleteOutlined,
@@ -48,6 +48,11 @@ const ManageMenu = () => {
       title: 'Tên món',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Số lượng',
+      dataIndex: 'quantity',
+      key: 'quantity',
     },
     {
       title: 'Loại món',
@@ -196,6 +201,13 @@ const ManageMenu = () => {
               <Option value="Món ăn">Món ăn</Option>
               <Option value="Đồ uống">Đồ uống</Option>
             </Select>
+          </Form.Item>
+          <Form.Item
+            label="Số lượng"
+            name="quantity">
+            <InputNumber
+              type="number"
+              placeholder='Vui lòng nhập số lượng' />
           </Form.Item>
           <Form.Item
             label="Mô tả"

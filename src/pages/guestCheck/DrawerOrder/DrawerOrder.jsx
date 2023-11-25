@@ -87,7 +87,7 @@ function DrawerOrder(props) {
     const { isOpenOrder, closeOrder, selectedBooking } = props;
 
     const [form] = Form.useForm();
-    const formRef = useRef(); 
+    const formRef = useRef();
     const [isModalMenu, setIsModalMenu] = useState(false);
     const [dataMenu, setDataMenu] = useState([]);
     const [selectedProductKeys, setSelectedProductKeys] = useState([]);
@@ -308,6 +308,11 @@ function DrawerOrder(props) {
                         <Button
                             type="primary"
                             onClick={handleCreateBill}
+                            style={{
+                                backgroundColor: "#35B968",
+                                borderColor: "#35B968",
+                                color: "#FFF",
+                            }}
                         >
                             Tạo mới bill
                         </Button>
@@ -381,7 +386,11 @@ function DrawerOrder(props) {
                     columns={columnsMenuOrder}
                     dataSource={tableData}
                 />
-                <Button>
+                <Button
+                    style={{
+                        marginTop: "10px",
+                    }}
+                >
                     Tổng tiền :{" "}
                 </Button>
             </Drawer>
@@ -399,7 +408,6 @@ function DrawerOrder(props) {
                 <div>
                     <Table
                         className="main-table"
-                        // columns={columnsMenu}
                         columns={editColumns}
                         dataSource={dataMenu}
                         pagination={false}
