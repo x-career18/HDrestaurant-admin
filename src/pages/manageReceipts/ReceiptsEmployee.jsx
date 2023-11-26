@@ -111,6 +111,7 @@ const ReceiptsEmployee = () => {
         fullName: selectedBill.fullName,
         phoneNumber: selectedBill.phoneNumber,
         totalAmount: selectedBill.totalAmount,
+        dishes: selectedBill.dishes,
       }
       await fetchUpdateBills(id, data);
       fetchData();
