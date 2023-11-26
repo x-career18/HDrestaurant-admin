@@ -9,6 +9,7 @@ import {
     Modal,
     Space,
     Table,
+    message,
 } from "antd";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { fetchMenus } from "../../../services/MenuServices";
@@ -320,6 +321,7 @@ function DrawerOrder(props) {
         fetchCreateBills(dataBills);
         formRef.current.resetFields();
         closeOrder();
+        message.success("Tạo mới bill thành công!");
     };
 
     const handleUpdateBill = () => {
@@ -355,6 +357,7 @@ function DrawerOrder(props) {
         fetchUpdateBills(billId, dataBills);
         formRef.current.resetFields();
         closeOrder();
+        message.success("Cập nhật bill thành công!");
     };
 
 

@@ -2,7 +2,7 @@ import { Button, Form, Modal, Table, message } from "antd"
 import React, { useEffect, useState } from "react"
 import BreadCrumb from "../../components/BreadCrumb"
 import moment from "moment"
-import { fetchBills, fetchUpdateBills } from "../../services/billsServices.jsx"
+import { fetchBills, fetchUpdateBills, fetchDeleteBills} from "../../services/billsServices.jsx"
 
 const ReceiptsEmployee = () => {
 
@@ -83,6 +83,7 @@ const ReceiptsEmployee = () => {
               color: "#E92C2C",
               padding: "0 10px",
             }}
+            onClick={() => handleDelete(record._id)}
           >
             Xóa
           </Button>
@@ -116,6 +117,16 @@ const ReceiptsEmployee = () => {
       closeModal();
       setSelectedBill(null)
       message.success("Xác nhận thanh toán thành công!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await fetchDeleteBills(id);
+      fetchData();
+      message.success("Xóa hóa đơn thành công!");
     } catch (error) {
       console.log(error);
     }

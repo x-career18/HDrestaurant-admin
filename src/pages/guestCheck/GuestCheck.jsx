@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import moment from "moment";
-import { Button, Form, Table } from "antd";
+import { Button, Form, Table, message } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
-import { fetchBookings } from "../../services/BookingServices";
+import { fetchBookings, deleteBooking} from "../../services/BookingServices";
 import "./GuestCheck.scss";
 import DrawerOrder from "./DrawerOrder/DrawerOrder";
 
@@ -86,6 +86,7 @@ function GuestCheck() {
               color: "#E92C2C",
               padding: "0 10px",
             }}
+            onClick={() => handleDelete(record._id)}
           >
             Xóa
           </Button>
@@ -128,6 +129,16 @@ function GuestCheck() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteBooking(id);
+      fetchData();
+      message.success("Xóa thành công!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <main className="bg-slate-100 grow h-screen flex flex-col">
