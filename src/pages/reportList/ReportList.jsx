@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import { Button, Table, message, Modal } from "antd";
 import moment from "moment";
-import { CheckSquareOutlined, DeleteOutlined, InfoCircleTwoTone } from "@ant-design/icons";
+import {
+  CheckSquareOutlined,
+  DeleteOutlined,
+  InfoCircleTwoTone,
+} from "@ant-design/icons";
 import {
   deleteReport,
   getReports,
@@ -153,19 +157,15 @@ const ReportList = () => {
     <main className="bg-slate-100 grow h-screen flex flex-col">
       <BreadCrumb />
       <section className="pb-10 mx-10 mb-10">
-        <div className="flex justify-between">
-          <h4 className="text-neutral-600 text-xl font-bold font-beVietnam leading-10">
-            Danh sách báo cáo của nhân viên
-          </h4>
-        </div>
-        <div className="w-full h-full">
-          <Table
-            className="main-table bg-white font-semibold text-sm leading-5 text-[#969696] drop-shadow-[0_3px_10px_rgba(119,119,119,0.10)]"
-            columns={columns}
-            dataSource={reports}
-            loading={loading}
-          />
-        </div>
+        <h4 className="text-neutral-600 text-xl font-bold font-beVietnam leading-10">
+          Danh sách báo cáo của nhân viên
+        </h4>
+        <Table
+          className="main-table bg-white font-semibold text-sm leading-5 text-[#969696] drop-shadow-[0_3px_10px_rgba(119,119,119,0.10)]"
+          columns={columns}
+          dataSource={reports}
+          loading={loading}
+        />
       </section>
       <Modal
         title="Chi tiết báo cáo"
