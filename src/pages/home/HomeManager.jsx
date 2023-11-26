@@ -39,6 +39,7 @@ const HomeManager = () => {
           );
           setNumBookings(matchingBookings);
           setLatestBookings(sortedBookings.slice(0, 10));
+          console.log(latestBookings)
           setRevenue(
             matchingBills.reduce((sum, bill) => sum + bill.totalAmount, 0)
           );
