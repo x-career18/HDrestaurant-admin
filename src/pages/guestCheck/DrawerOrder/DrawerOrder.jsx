@@ -13,7 +13,8 @@ import {
 } from "antd";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { fetchMenus } from "../../../services/MenuServices";
-import { fetchCreateBills, fetchGetBookingId, fetchUpdateBills } from "../../../services/billsServices";
+import { fetchCreateBills, fetchGetBillsId, fetchGetBookingId, fetchUpdateBills } from "../../../services/billsServices";
+import { deleteBooking } from "../../../services/BookingServices";
 
 const columnsMenuOrder = [
     {
@@ -85,7 +86,7 @@ const columnsMenu = [
 ];
 
 function DrawerOrder(props) {
-    const { isOpenOrder, closeOrder, selectedBooking } = props;
+    const { isOpenOrder, closeOrder, selectedBooking, setLatestBookings } = props;
 
     const [form] = Form.useForm();
     const formRef = useRef();
@@ -324,40 +325,99 @@ function DrawerOrder(props) {
         message.success("Tạo mới bill thành công!");
     };
 
-    const handleUpdateBill = () => {
-        const dataDishes = tableData.map((item) => {
-            return {
-                dishName: item.name,
-                category: item.category,
-                quantity: item.quantity,
-                total: item.total,
-            };
-        });
-        const dataBills = {
-            totalAmount: dataDishes.reduce((accumulator, currentDish) => {
-                return accumulator + currentDish.total;
-            }, 0),
-            fullName: form.getFieldValue(
-                "fullName"
-            ),
-            phoneNumber: form.getFieldValue(
-                "phoneNumber"
-            ),
-            employeeCode: form.getFieldValue(
-                "employeeCode"
-            ),
-            idRestaurant: form.getFieldValue(
-                "idRestaurant"
-            ),
-            dishes: [...dataDishes],
-            bookingId: selectedBooking?._id,
-            _id: billId,
-        };
+    const handleUpdateBill = async () => {
+        try {
+            // Lấy thông tin của bill cần cập nhật
+            const billResponse = await fetchGetBookingId(selectedBooking?._id);
 
-        fetchUpdateBills(billId, dataBills);
-        formRef.current.resetFields();
-        closeOrder();
-        message.success("Cập nhật bill thành công!");
+            if (billResponse && billResponse.data) {
+                const bill = billResponse.data;
+
+                // Kiểm tra xem status của bill có phải là "active" không
+                if (bill.status === "active") {
+                    // Hiển thị thông báo cảnh báo khi status là "active"
+                    message.warning("Không thể cập nhật bill với status là active!");
+                    return;
+                }
+
+                // Tiếp tục xử lý cập nhật bill
+                const dataDishes = tableData.map((item) => ({
+                    dishName: item.name,
+                    category: item.category,
+                    quantity: item.quantity,
+                    total: item.total,
+                }));
+
+                const dataBills = {
+                    totalAmount: dataDishes.reduce((accumulator, currentDish) => accumulator + currentDish.total, 0),
+                    fullName: form.getFieldValue("fullName"),
+                    phoneNumber: form.getFieldValue("phoneNumber"),
+                    employeeCode: form.getFieldValue("employeeCode"),
+                    idRestaurant: form.getFieldValue("idRestaurant"),
+                    dishes: [...dataDishes],
+                    bookingId: selectedBooking?._id,
+                    _id: billId,
+                };
+
+                // Gọi API để cập nhật bill
+                const updateBillResponse = await fetchUpdateBills(billId, dataBills);
+
+                if (updateBillResponse && updateBillResponse.data) {
+                    message.success("Cập nhật bill thành công!");
+                    closeOrder();
+                }
+            } else {
+                message.error("Không thể lấy thông tin bill để cập nhật!");
+            }
+        } catch (error) {
+            console.error("Lỗi khi cập nhật bill:", error);
+            message.error("Đã xảy ra lỗi khi cập nhật bill!");
+        }
+    };
+
+
+    const handleDelete = async () => {
+        try {
+            // Lấy thông tin của bill cần xóa
+            const billResponse = await fetchGetBillsId(billId);
+            console.log(billResponse);
+
+            if (billResponse && billResponse.data) {
+                const bill = billResponse.data;
+
+                // Kiểm tra xem status của bill có phải là active không
+                if (bill.status === "active") {
+                    // Lấy bookingId của bill
+                    const bookingIdToDelete = bill.bookingId;
+
+                    // Xóa booking nếu bookingId trùng khớp
+                    const deleteBookingResponse = await deleteBooking(bookingIdToDelete);
+
+                    if (deleteBookingResponse && deleteBookingResponse.data) {
+                        message.success("Xóa booking thành công!");
+                        setLatestBookings();
+                        closeOrder();
+                    }
+                } else {
+                    message.error("Không thể xóa booking vì status của bill không phải là active!");
+                }
+            } else {
+                message.error("Không thể lấy thông tin bill để xóa booking!");
+            }
+        } catch (error) {
+            console.error("Lỗi khi xóa booking:", error);
+            message.error("Đã xảy ra lỗi khi xóa booking!");
+        }
+    };
+
+    const handleDeleteButton = () => {
+        Modal.confirm({
+            title: "Xác nhận xóa",
+            content: "Bạn có chắc chắn muốn xóa booking và bill này?",
+            okText: "Xác nhận",
+            cancelText: "Hủy",
+            onOk: () => handleDelete(),
+        });
     };
 
 
@@ -372,7 +432,7 @@ function DrawerOrder(props) {
                     <Space>
                         <Button
                             type="primary"
-                            onClick={billId ? handleUpdateBill: handleCreateBill}
+                            onClick={billId ? handleUpdateBill : handleCreateBill}
                             style={{
                                 backgroundColor: "#35B968",
                                 borderColor: "#35B968",
@@ -380,6 +440,17 @@ function DrawerOrder(props) {
                             }}
                         >
                             {billId ? "Cập nhật" : "Tạo mới bill"}
+                        </Button>
+                        <Button
+                            type="danger"
+                            onClick={handleDeleteButton}
+                            style={{
+                                backgroundColor: "#FF4D4F",
+                                borderColor: "#FF4D4F",
+                                color: "#FFF",
+                            }}
+                        >
+                            Xóa
                         </Button>
                     </Space>
                 }

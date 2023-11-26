@@ -161,6 +161,7 @@ function GuestCheck() {
             closeOrder={closeOrder}
             form={form}
             selectedBooking={selectedBooking}
+            setLatestBookings={setLatestBookings}
           />
         )
       }

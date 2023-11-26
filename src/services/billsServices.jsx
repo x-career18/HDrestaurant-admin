@@ -8,6 +8,10 @@ const fetchCreateBills = (data) => {
     return axios.post('/api/v1/bills', data);
 };
 
+const fetchGetBillsId = (id) => {
+    return axios.get(`/api/v1/bills/${id}`);
+};
+
 const fetchGetBookingId = (id) => {
     return axios.get(`/api/v1/bills/booking/${id}`);
 };
@@ -26,4 +30,5 @@ export {
     fetchUpdateBills,
     fetchDeleteBills,
     fetchGetBookingId,
+    fetchGetBillsId,
 };
