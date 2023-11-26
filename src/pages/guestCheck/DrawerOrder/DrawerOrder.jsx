@@ -12,7 +12,7 @@ import {
 } from "antd";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { fetchMenus } from "../../../services/MenuServices";
-import { fetchCreateBills } from "../../../services/billsServices";
+import { fetchCreateBills, fetchGetBookingId, fetchUpdateBills } from "../../../services/billsServices";
 
 const columnsMenuOrder = [
     {
@@ -92,6 +92,7 @@ function DrawerOrder(props) {
     const [dataMenu, setDataMenu] = useState([]);
     const [selectedProductKeys, setSelectedProductKeys] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const [billId, setBillId] = useState(null);
 
     const openModalMenu = () => {
         setIsModalMenu(true);
@@ -106,6 +107,32 @@ function DrawerOrder(props) {
             form.setFieldsValue(selectedBooking);
         }
     }, [selectedBooking]);
+
+    useEffect(() => {
+        if (isOpenOrder) {
+            fetchBookingId();
+        }
+    }, [isOpenOrder]);
+
+    const fetchBookingId = async () => {
+        try {
+            const response = await fetchGetBookingId(selectedBooking?._id);
+            if (response && response.data) {
+                setBillId(response.data._id);
+                setTableData(response.data.dishes
+                    .map((item) => {
+                        return {
+                            name: item.dishName,
+                            category: item.category,
+                            quantity: item.quantity,
+                            total: item.total,
+                        };
+                    }));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const fetchMenuData = async () => {
         try {
@@ -287,9 +314,45 @@ function DrawerOrder(props) {
                 "idRestaurant"
             ),
             dishes: [...dataDishes],
+            bookingId: selectedBooking?._id,
         };
 
         fetchCreateBills(dataBills);
+        formRef.current.resetFields();
+        closeOrder();
+    };
+
+    const handleUpdateBill = () => {
+        const dataDishes = tableData.map((item) => {
+            return {
+                dishName: item.name,
+                category: item.category,
+                quantity: item.quantity,
+                total: item.total,
+            };
+        });
+        const dataBills = {
+            totalAmount: dataDishes.reduce((accumulator, currentDish) => {
+                return accumulator + currentDish.total;
+            }, 0),
+            fullName: form.getFieldValue(
+                "fullName"
+            ),
+            phoneNumber: form.getFieldValue(
+                "phoneNumber"
+            ),
+            employeeCode: form.getFieldValue(
+                "employeeCode"
+            ),
+            idRestaurant: form.getFieldValue(
+                "idRestaurant"
+            ),
+            dishes: [...dataDishes],
+            bookingId: selectedBooking?._id,
+            _id: billId,
+        };
+
+        fetchUpdateBills(billId, dataBills);
         formRef.current.resetFields();
         closeOrder();
     };
@@ -299,21 +362,21 @@ function DrawerOrder(props) {
         <div>
             <Drawer
                 width={650}
-                title="Thông tin order của khách hàng"
+                title={billId ? "Cập nhật bill" : "Tạo mới bill"}
                 open={isOpenOrder}
                 onClose={closeOrder}
                 extra={
                     <Space>
                         <Button
                             type="primary"
-                            onClick={handleCreateBill}
+                            onClick={billId ? handleUpdateBill: handleCreateBill}
                             style={{
                                 backgroundColor: "#35B968",
                                 borderColor: "#35B968",
                                 color: "#FFF",
                             }}
                         >
-                            Tạo mới bill
+                            {billId ? "Cập nhật" : "Tạo mới bill"}
                         </Button>
                     </Space>
                 }
@@ -390,7 +453,37 @@ function DrawerOrder(props) {
                         marginTop: "10px",
                     }}
                 >
-                    Tổng tiền :{" "}
+                    Tổng tiền :
+                    {tableData.map((item) => {
+                        return {
+                            total: item.total,
+                        };
+                    }).reduce((accumulator, currentDish) => {
+                        return accumulator + currentDish.total;
+                    }, 0) && typeof tableData.map((item) => {
+                        return {
+                            total: item.total,
+                        };
+                    }).reduce((accumulator, currentDish) => {
+                        return accumulator + currentDish.total;
+                    }, 0) === "number"
+                        ? tableData.map((item) => {
+                            return {
+                                total: item.total,
+                            };
+                        }).reduce((accumulator, currentDish) => {
+                            return accumulator + currentDish.total;
+                        }, 0).toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                        })
+                        : tableData.map((item) => {
+                            return {
+                                total: item.total,
+                            };
+                        }).reduce((accumulator, currentDish) => {
+                            return accumulator + currentDish.total;
+                        }, 0)}
                 </Button>
             </Drawer>
             <Modal

@@ -49,9 +49,8 @@ function GuestCheck() {
       render: (status) => (
         <div className="flex items-center gap-10">
           <span
-            className={`w-20 text-center text-white p-1 rounded-3xl ${
-              status === "pending" ? "bg-rose-500" : "bg-green-500"
-            }`}
+            className={`w-20 text-center text-white p-1 rounded-3xl ${status === "pending" ? "bg-rose-500" : "bg-green-500"
+              }`}
           >
             {status === "pending" ? "Pending" : "Active"}
           </span>
@@ -107,6 +106,7 @@ function GuestCheck() {
 
   const closeOrder = () => {
     setIsOpenOrder(false);
+    setSelectedBooking(null);
   };
 
   const fetchData = async () => {
@@ -142,12 +142,17 @@ function GuestCheck() {
           dataSource={latestBookings}
         />
       </section>
-      <DrawerOrder
-        isOpenOrder={isOpenOrder}
-        closeOrder={closeOrder}
-        form={form}
-        selectedBooking={selectedBooking}
-      />
+
+      {
+        isOpenOrder && (
+          <DrawerOrder
+            isOpenOrder={isOpenOrder}
+            closeOrder={closeOrder}
+            form={form}
+            selectedBooking={selectedBooking}
+          />
+        )
+      }
     </main>
   );
 }

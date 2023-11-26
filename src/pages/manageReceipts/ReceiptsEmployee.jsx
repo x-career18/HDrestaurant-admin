@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Table } from "antd"
+import { Button, Form, Modal, Table, message } from "antd"
 import React, { useEffect, useState } from "react"
 import BreadCrumb from "../../components/BreadCrumb"
 import moment from "moment"
@@ -62,7 +62,7 @@ const ReceiptsEmployee = () => {
       render: (action, record) => (
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Button
-            onClick={openModal}
+            onClick={() => openModal(record)}
             style={{
               backgroundColor: "#35B968",
               borderColor: "#35B968",
@@ -95,10 +95,32 @@ const ReceiptsEmployee = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
   const [isModalPay, setIsModalPay] = useState(false);
+  const [selectedBill, setSelectedBill] = useState(null);
 
-  const openModal = () => {
+  const openModal = (record) => {
     setIsModalPay(true);
+    setSelectedBill(record);
   }
+
+  const handleOk = async (id) => {
+    try {
+      const data = {
+        status: "active",
+        paymentMethod: form.getFieldValue("paymentMethod"),
+        fullName: selectedBill.fullName,
+        phoneNumber: selectedBill.phoneNumber,
+        totalAmount: selectedBill.totalAmount,
+      }
+      await fetchUpdateBills(id, data);
+      fetchData();
+      closeModal();
+      setSelectedBill(null)
+      message.success("Xác nhận thanh toán thành công!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const closeModal = () => {
     setIsModalPay(false);
@@ -143,6 +165,7 @@ const ReceiptsEmployee = () => {
         className="modal-create"
         open={isModalPay}
         onCancel={closeModal}
+        onOk={() => handleOk(selectedBill._id)}
       >
         <div>
           <Form
@@ -152,6 +175,7 @@ const ReceiptsEmployee = () => {
             <Form.Item
               label="Phương thức thanh toán"
               name="paymentMethod"
+              initialValue={"cash"}
               rules={[
                 {
                   required: true,
